@@ -1,73 +1,182 @@
-# Welcome to your Lovable project
+# BrightStep Foundation – Volunteer & NGO Platform
 
-## Project info
+A full-stack web platform for the **BrightStep Foundation**, designed to provide hope, support, and opportunities through shelter, rehabilitation, and education programs.
 
-**URL**: https://lovable.dev/projects/f526872d-930e-4c14-b898-9c0ca33208ea
+This platform integrates **volunteer management**, **registration/login**, and **database management** using **Supabase** as the backend and a clean, accessible **React frontend**.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌐 Tech Stack
 
-**Use Lovable**
+* **Frontend:** React, JavaScript, HTML, CSS
+* **Backend & Database:** Supabase (PostgreSQL, Auth, Storage, API)
+* **Design & Branding:**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f526872d-930e-4c14-b898-9c0ca33208ea) and start prompting.
+  * Teal & turquoise accents
+  * Cream backgrounds
+  * Dark header/footer
+  * Clean, modern typography
+* **Other:** Responsive design, accessibility-compliant (contrast, alt-text, screen reader support)
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 📌 Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Homepage
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Hero section with headline: *"Restoring Hope. Rebuilding Futures."*
+* Call-to-action buttons: **Donate Now** & **Learn More**
+* Impact statistics:
 
-Follow these steps:
+  * 820+ families supported
+  * 400+ volunteers
+  * 1,200+ meals served
+  * 95% rehabilitation success rate
+* Mission statement + supporting image
+* **Integrated Longevity Model:**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+  * Homeless Shelter
+  * Rehabilitation Center
+  * Education & Training Center
+* *Stories of Transformation* section with testimonials
+* Footer call-to-action: “Ready to Make a Difference?”
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 2. Volunteer Registration & Login
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+* **Register, Login, and Forgot Password** flows using Supabase Auth
+* Secure storage of volunteer data in Supabase (name, contact, volunteer history)
+* **User icon in navbar** once logged in → profile page to view/update details
+* Volunteers must be logged in to apply for positions
+
+---
+
+### 3. Volunteer Portal & Programs
+
+* Programs divided into 3 sections:
+
+  * Rehabilitation
+  * Emergency Shelter
+  * Educational Support
+* When a program is clicked:
+
+  * Opens a **Leaflet Map Modal** showing the closest facilities
+  * Facility markers are **randomized within a radius** for demo purposes
+  * User location marker (if allowed) with nearest facility highlighted
+  * Clicking a marker shows facility details + **Apply Now button**
+* **Apply flow:**
+
+  * If not logged in → redirected to Register/Login
+  * If logged in → details auto-filled, confirm booking
+  * Application saved to Supabase database under user’s account
+
+---
+
+### 4. Accessibility & Child Protection
+
+* **Report Now button** always visible for:
+
+  * Homeless kids
+  * Children outside school
+  * Abuse cases
+  * Booking appointments for rehab/help services
+
+---
+
+### 5. Courses Section
+
+* **CAPS-aligned curriculum** for school integration
+* Online course structure (Coursera-style)
+* Vocational skills & training programs
+
+---
+
+### 6. Database & Admin Dashboard
+
+* Supabase database tables:
+
+  * `users` (volunteers, admins)
+  * `programs` (rehab, shelter, education)
+  * `facilities` (locations, availability)
+  * `applications` (user ↔ position ↔ facility)
+  * `waiting_list` (kids needing shelter/education/rehab)
+* **Admin dashboard** to manage waiting list, volunteers, and program data
+
+---
+
+### 7. Rehabilitation Centre Features
+
+* Extracurricular activities: sports, arts, mentorship, skills training
+
+---
+
+### 8. Donations & Contact
+
+* Secure **donation flow** (integrate payment provider later)
+* Contact form for schools, parents, and partners
+
+---
+
+## ⚡ Supabase Integration
+
+1. **Auth:**
+
+   * Email/password registration & login
+   * Protected routes (only logged-in users can apply to volunteer positions)
+
+2. **Database Tables (Core Schema):**
+
+   * `users`: id, name, email, role, profile info
+   * `programs`: id, title, description, type
+   * `facilities`: id, program_id, name, coordinates, description, capacity
+   * `applications`: id, user_id, facility_id, position, booking_dates, status
+   * `waiting_list`: id, child_name, age, category (shelter/education/rehab), status
+
+3. **Storage (optional):**
+
+   * Upload volunteer documents or media
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Node.js & npm/yarn
+* Supabase account ([https://supabase.com](https://supabase.com))
+
+### Installation
+
+```bash
+# Clone repo
+git clone https://github.com/your-org/brightstep-foundation.git
+cd brightstep-foundation
+
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Supabase Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Create new project in Supabase
+2. Copy your project URL & anon/public key → add to `.env.local`:
 
-**Use GitHub Codespaces**
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
+   ```
+3. Create database tables using provided schema (SQL script in `/supabase/migrations/`).
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🎨 Design Guidelines
 
-This project is built with:
+* Use **exact palette & fonts from provided screenshot**
+* Keep layout warm, professional, and hopeful
+* Ensure accessibility (WCAG AA compliance)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/f526872d-930e-4c14-b898-9c0ca33208ea) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
