@@ -189,7 +189,7 @@ const Donate = () => {
               <Card>
                 <CardContent className="pt-6">
                   <p className="text-sm text-gray-600 text-center">
-                    Your donation is tax-deductible. Ridgeview Foundation is a registered 501(c)(3) nonprofit organization.
+                    Your donation is tax-deductible. BrightStep Foundation is a registered 501(c)(3) nonprofit organization.
                   </p>
                 </CardContent>
               </Card>

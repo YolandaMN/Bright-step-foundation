@@ -8,7 +8,7 @@ const Mission = () => {
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">Our Mission</h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              At Ridgeview Foundation, we believe every person deserves a chance to rebuild their life with dignity and hope. Our integrated approach combines immediate support with long-term solutions.
+              At BrightStep Foundation, we believe every person deserves a chance to rebuild their life with dignity and hope. Our integrated approach combines immediate support with long-term solutions.
             </p>
             <div className="space-y-4">
               <div className="flex gap-4">
