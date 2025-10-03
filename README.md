@@ -129,3 +129,51 @@ Create database tables using provided schema (SQL script in /supabase/migrations
 Use exact palette & fonts from provided screenshot
 Keep layout warm, professional, and hopeful
 Ensure accessibility (WCAG AA compliance)
+About
+No description, website, or topics provided.
+Resources
+ Readme
+ Activity
+Stars
+ 0 stars
+Watchers
+ 0 watching
+Forks
+ 0 forks
+Releases
+No releases published
+Create a new release
+Packages
+No packages published
+Publish your first package
+Languages
+TypeScript
+96.1%
+ 
+PLpgSQL
+1.9%
+ 
+CSS
+1.2%
+ 
+Other
+0.8%
+Suggested workflows
+Based on your tech stack
+Deno logo
+Deno
+Test your Deno project
+Grunt logo
+Grunt
+Build a NodeJS project with npm and grunt.
+Webpack logo
+Webpack
+Build a NodeJS project with npm and webpack.
+More workflows
+Footer
+© 2025 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Sta
