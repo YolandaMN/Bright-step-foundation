@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar"; 
 import Footer from "@/components/Footer";
 import { Heart, Users, Target, Award } from "lucide-react";
 
@@ -22,7 +22,7 @@ const About = () => {
           transform: rotateY(180deg);
         }
       `}</style>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50"> <Navbar />
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
@@ -141,6 +141,7 @@ const About = () => {
             </div>
           </div>
         </section>
+        <Footer />
       </div>
     </>
   );
