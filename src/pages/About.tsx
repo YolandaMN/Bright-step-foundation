@@ -4,11 +4,27 @@ import { Heart, Users, Target, Award } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1">
+    <>
+      <style>{`
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .transform-style-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+        .group:hover .group-hover\\:rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+      <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <section className="bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About BrightStep Foundation</h1>
             <p className="text-xl opacity-90">
@@ -21,60 +37,78 @@ const About = () => {
         <section className="py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid md:grid-cols-2 gap-12">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                  <Target className="h-8 w-8 text-primary" />
+              {/* Mission Card */}
+              <div className="group perspective-1000 h-96">
+                <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                  {/* Front of card */}
+                  <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
+                    <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
+                      <Target className="h-8 w-8 text-teal-600" />
+                    </div>
+                    <h2 className="text-3xl font-bold">Our Mission</h2>
+                  </div>
+                  {/* Back of card */}
+                  <div className="absolute w-full h-full backface-hidden bg-teal-600 rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
+                    <p className="text-white leading-relaxed text-center">
+                      To provide comprehensive support, shelter, education, and rehabilitation services to homeless children, 
+                      children outside the school system, and victims of abuse. We believe every child deserves a safe environment 
+                      and the opportunity to reach their full potential.
+                    </p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  To provide comprehensive support, shelter, education, and rehabilitation services to homeless children, 
-                  children outside the school system, and victims of abuse. We believe every child deserves a safe environment 
-                  and the opportunity to reach their full potential.
-                </p>
               </div>
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-6">
-                  <Heart className="h-8 w-8 text-accent" />
+              {/* Vision Card */}
+              <div className="group perspective-1000 h-96">
+                <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                  {/* Front of card */}
+                  <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
+                    <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
+                      <Heart className="h-8 w-8 text-cyan-500" />
+                    </div>
+                    <h2 className="text-3xl font-bold">Our Vision</h2>
+                  </div>
+                  {/* Back of card */}
+                  <div className="absolute w-full h-full backface-hidden bg-teal-600 rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
+                    <p className="text-white leading-relaxed text-center">
+                      A world where no child is left behind. We envision communities where every child has access to education, 
+                      healthcare, and the support needed to break the cycle of poverty and build a brighter future for themselves 
+                      and their families.
+                    </p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  A world where no child is left behind. We envision communities where every child has access to education, 
-                  healthcare, and the support needed to break the cycle of poverty and build a brighter future for themselves 
-                  and their families.
-                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Our Values */}
-        <section className="bg-secondary py-16 px-4">
+        <section className="bg-gray-100 py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Our Core Values</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Heart className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Compassion</h3>
                 <p className="text-gray-600">We lead with empathy and understanding</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Community</h3>
                 <p className="text-gray-600">Together we create lasting change</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Target className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Impact</h3>
                 <p className="text-gray-600">Measurable results that transform lives</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Excellence</h3>
@@ -107,9 +141,8 @@ const About = () => {
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 
