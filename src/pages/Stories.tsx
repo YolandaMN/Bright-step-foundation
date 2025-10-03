@@ -7,7 +7,7 @@ const Stories = () => {
     {
       name: "Sarah M.",
       age: 16,
-      story: "When I came to Ridgeview Foundation, I had nowhere to go and felt completely lost. The counselors here didn't just give me a place to sleep—they gave me hope. Through their education program, I'm now back in school and dreaming of becoming a teacher myself one day.",
+      story: "When I came to BrightStep Foundation, I had nowhere to go and felt completely lost. The counselors here didn't just give me a place to sleep—they gave me hope. Through their education program, I'm now back in school and dreaming of becoming a teacher myself one day.",
       image: "https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?w=400&h=400&fit=crop"
     },
     {
@@ -19,25 +19,25 @@ const Stories = () => {
     {
       name: "Amina K.",
       age: 15,
-      story: "Thanks to Ridgeview's partnership with my school and their CAPS program, I'm not just catching up—I'm excelling. The volunteers here believe in me more than I believed in myself. Now I'm helping other kids who are going through what I went through.",
+      story: "Thanks to BrightStep's partnership with my school and their CAPS program, I'm not just catching up—I'm excelling. The volunteers here believe in me more than I believed in myself. Now I'm helping other kids who are going through what I went through.",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop"
     },
     {
       name: "David L.",
       age: 17,
-      story: "After years of abuse, I didn't think I could trust anyone. The therapists and mentors at Ridgeview showed me what healthy relationships look like. I've been here for two years, and I'm now preparing to go to college—something I never thought possible.",
+      story: "After years of abuse, I didn't think I could trust anyone. The therapists and mentors at BrightStep showed me what healthy relationships look like. I've been here for two years, and I'm now preparing to go to college—something I never thought possible.",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop"
     },
     {
       name: "Grace N.",
       age: 13,
-      story: "I was pulled out of school by my circumstances, but Ridgeview gave me a second chance. Their online courses and dedicated tutors helped me not just return to school, but become one of the top students in my class. I want to be a doctor now.",
+      story: "I was pulled out of school by my circumstances, but BrightStep gave me a second chance. Their online courses and dedicated tutors helped me not just return to school, but become one of the top students in my class. I want to be a doctor now.",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop"
     },
     {
       name: "James P.",
       age: 16,
-      story: "The sports and arts programs at Ridgeview helped me channel my energy in positive ways. I discovered I love painting, and my artwork has even been displayed in local galleries. This foundation doesn't just save lives—it helps us discover who we truly are.",
+      story: "The sports and arts programs at BrightStep helped me channel my energy in positive ways. I discovered I love painting, and my artwork has even been displayed in local galleries. This foundation doesn't just save lives—it helps us discover who we truly are.",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop"
     }
   ];
@@ -135,7 +135,7 @@ const Stories = () => {
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold mb-4">Have a Story to Share?</h2>
             <p className="text-xl text-gray-600 mb-8">
-              If you or someone you know has been impacted by Ridgeview Foundation, we'd love to hear from you.
+              If you or someone you know has been impacted by BrightStep Foundation, we'd love to hear from you.
             </p>
             <a href="/contact" className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Share Your Story
