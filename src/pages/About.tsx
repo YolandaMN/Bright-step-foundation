@@ -10,7 +10,7 @@ const About = () => {
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About Ridgeview Foundation</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">About BrightStep Foundation</h1>
             <p className="text-xl opacity-90">
               Dedicated to restoring hope and rebuilding futures for vulnerable children and families since our founding.
             </p>
@@ -90,7 +90,7 @@ const About = () => {
             <h2 className="text-4xl font-bold text-center mb-8">Our Story</h2>
             <div className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
               <p className="text-gray-600 leading-relaxed">
-                The Ridgeview Foundation was born from a simple but powerful belief: every child deserves a chance 
+                The BrightStep Foundation was born from a simple but powerful belief: every child deserves a chance 
                 to thrive. What started as a small shelter has grown into a comprehensive support system that addresses 
                 the multifaceted challenges facing vulnerable children and their families.
               </p>

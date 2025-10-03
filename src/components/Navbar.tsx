@@ -14,7 +14,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-xl">R</span>
             </div>
-            <span className="font-bold text-lg">Ridgeview Foundation</span>
+            <span className="font-bold text-lg">BrightStep Foundation</span>
           </Link>
 
           {/* Desktop Menu */}
