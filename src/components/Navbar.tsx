@@ -54,39 +54,9 @@ const Navbar = () => {
             <Link to="/courses" className="hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="hover:text-primary transition-colors">Volunteer</Link>
-            
-            {/* Auth Section */}
-            <div className="flex items-center space-x-3">
-              <Button variant="default" size="sm" asChild>
-                <Link to="/donate">Donate Now</Link>
-              </Button>
-              
-              {user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                      <User className="h-4 w-4" />
-                      <span>{user.user_metadata?.name || user.email?.split('@')[0] || 'User'}</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={handleSignOut} disabled={loading}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={() => openAuthModal('signin')}
-                  disabled={loading}
-                >
-                  Sign In
-                </Button>
-              )}
-            </div>
+            <Button variant="default" size="sm" asChild>
+              <Link to="/donate">Donate Now</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,7 +77,7 @@ const Navbar = () => {
             <Link to="/courses" className="block hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="block hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="block hover:text-primary transition-colors">Volunteer</Link>
-            <Button variant="default" size="sm" className="w-full mb-3" asChild>
+            <Button variant="default" size="sm" className="w-full" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
             
