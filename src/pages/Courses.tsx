@@ -63,15 +63,19 @@ const Courses = () => {
       <Navbar />
       <div className="flex-1 bg-secondary">
         {/* Hero Section */}
-        <div className="bg-primary text-white py-16">
+        <div className="bg-primary text-white py-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Education & Training Programs
+              Educational & Skills Development Programs
             </h1>
-            <p className="text-xl max-w-3xl mx-auto">
-              Empowering individuals through education, vocational training, and life skills development
+            <p className="text-4xl md:text-2xl font-bold max-w-3xl mx-auto">
+              Learn. Grow. Rise.
             </p>
           </div>
+        </div>
+
+        <div className="text-center bg-teal-100 text-teal-800 py-3 px-4 rounded-md mb-6 animate-pulseGrow" >
+            <p>⚠️ Notice: Only participants enrolled at our center can access these courses. Thank you for understanding!</p>
         </div>
 
         {/* Courses Grid */}
