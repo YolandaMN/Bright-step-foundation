@@ -25,7 +25,6 @@ const Navbar = () => {
             <Link to="/courses" className="hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="hover:text-primary transition-colors">Volunteer</Link>
-            <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
             <Button variant="default" size="sm" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
@@ -49,7 +48,6 @@ const Navbar = () => {
             <Link to="/courses" className="block hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="block hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="block hover:text-primary transition-colors">Volunteer</Link>
-            <Link to="/contact" className="block hover:text-primary transition-colors">Contact</Link>
             <Button variant="default" size="sm" className="w-full" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
