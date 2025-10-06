@@ -19,8 +19,8 @@ interface Facility {
 }
 
 const VolunteerDashboard = () => {
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [user, setUser] = useState<null | { user_metadata?: { name?: string }; email?: string }>(null);
+  const [profile, setProfile] = useState<null | Record<string, unknown>>(null);
   const [loading, setLoading] = useState(true);
   const [mapModalOpen, setMapModalOpen] = useState(false);
   const [facilityModalOpen, setFacilityModalOpen] = useState(false);
@@ -38,24 +38,6 @@ const VolunteerDashboard = () => {
       });
       return;
     }
-    setSelectedFacilityType(facilityType);
-    setMapModalOpen(true);
-  };
-
-  const handleFacilityClick = (facility: Facility, distance: number) => {
-    setSelectedFacility(facility);
-    setFacilityDistance(distance);
-    setMapModalOpen(false);
-    setFacilityModalOpen(true);
-  };
-
-  const handleCloseModals = () => {
-    setMapModalOpen(false);
-    setFacilityModalOpen(false);
-    setSelectedFacility(null);
-  };
-
-  const handleCardClick = (facilityType: string) => {
     setSelectedFacilityType(facilityType);
     setMapModalOpen(true);
   };
@@ -107,11 +89,12 @@ const VolunteerDashboard = () => {
           
 
           {/* Main Content */}
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-              onClick={() => handleCardClick("Homeless Shelter")}
-            >
+          {user ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card 
+                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                onClick={() => handleCardClick("Homeless Shelter")}
+              >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   Homeless Shelter Facilities
