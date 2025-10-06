@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Clock, Users, Award, LogOut, MapPin } from "lucide-react";
+import { Heart, Clock, Users, Award, MapPin } from "lucide-react";
 import { MapModal } from "@/components/MapModal";
 import { FacilityModal } from "@/components/FacilityModal";
 
@@ -20,75 +19,23 @@ interface Facility {
 }
 
 const VolunteerDashboard = () => {
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [mapModalOpen, setMapModalOpen] = useState(false);
   const [facilityModalOpen, setFacilityModalOpen] = useState(false);
   const [selectedFacilityType, setSelectedFacilityType] = useState<string>("");
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
   const [facilityDistance, setFacilityDistance] = useState<number>(0);
+  const { user, loading } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  const checkUser = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/auth");
-        return;
-      }
-
-      setUser(session.user);
-
-      // Fetch or create profile
-      const { data: profileData, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", session.user.id)
-        .maybeSingle();
-
-      if (error && error.code !== "PGRST116") throw error;
-
-      if (!profileData) {
-        // Create profile if it doesn't exist
-        const { data: newProfile, error: insertError } = await supabase
-          .from("profiles")
-          .insert({
-            user_id: session.user.id,
-            full_name: session.user.user_metadata?.full_name || "",
-            email: session.user.email,
-          })
-          .select()
-          .single();
-
-        if (insertError) throw insertError;
-        setProfile(newProfile);
-      } else {
-        setProfile(profileData);
-      }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
 
   const handleCardClick = (facilityType: string) => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to access volunteer features.",
+        variant: "destructive",
+      });
+      return;
+    }
     setSelectedFacilityType(facilityType);
     setMapModalOpen(true);
   };
@@ -124,51 +71,54 @@ const VolunteerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
-                  Welcome back, {profile?.full_name || user?.email}!
+                  {user ? (
+                    <>Welcome back, {user.user_metadata?.name || user.email?.split('@')[0] || 'Volunteer'}!</>
+                  ) : (
+                    <>Welcome to Our Volunteer Dashboard</>
+                  )}
                 </h1>
-                <p className="text-gray-600">Your volunteer dashboard</p>
+                <p className="text-gray-600">
+                  {user ? 'Your volunteer dashboard' : 'Sign in to access volunteer features'}
+                </p>
               </div>
-              <Button variant="outline" onClick={handleSignOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
             </div>
           </div>
 
           
 
           {/* Main Content */}
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-              onClick={() => handleCardClick("Homeless Shelter")}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  Homeless Shelter Facilities
-                  <MapPin className="h-4 w-4 text-primary" />
-                </CardTitle>
-                <CardDescription>Click to find nearby shelter facilities</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">Meal Service</p>
-                      <p className="text-sm text-gray-600">Tomorrow, 10:00 AM - 2:00 PM</p>
+          {user ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card 
+                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                onClick={() => handleCardClick("Homeless Shelter")}
+              >
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    Homeless Shelter Facilities
+                    <MapPin className="h-4 w-4 text-primary" />
+                  </CardTitle>
+                  <CardDescription>Click to find nearby shelter facilities</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold">Meal Service</p>
+                        <p className="text-sm text-gray-600">Tomorrow, 10:00 AM - 2:00 PM</p>
+                      </div>
+                      <p className="text-sm text-gray-500">Upcoming</p>
                     </div>
-                    <p className="text-sm text-gray-500">Upcoming</p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">Tutoring Session</p>
-                      <p className="text-sm text-gray-600">Friday, 3:00 PM - 5:00 PM</p>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold">Tutoring Session</p>
+                        <p className="text-sm text-gray-600">Friday, 3:00 PM - 5:00 PM</p>
+                      </div>
+                      <p className="text-sm text-gray-500">This week</p>
                     </div>
-                    <p className="text-sm text-gray-500">This week</p>
                   </div>
-                </div>
-                <Button className="w-full mt-4" variant="outline">
-                  View Facilities on Map
+                  <Button className="w-full mt-4" variant="outline">
+                    View Facilities on Map
                 </Button>
               </CardContent>
             </Card>
@@ -251,17 +201,52 @@ const VolunteerDashboard = () => {
               </CardContent>
             </Card>
           </div>
+          ) : (
+            /* Non-authenticated content */
+            <div className="text-center bg-white rounded-2xl p-12">
+              <div className="max-w-2xl mx-auto">
+                <Heart className="h-16 w-16 text-primary mx-auto mb-6" />
+                <h2 className="text-3xl font-bold mb-4">Join Our Volunteer Community</h2>
+                <p className="text-gray-600 mb-8 text-lg">
+                  Connect with local facilities and make a difference in your community. 
+                  Sign in to access our interactive map and discover volunteer opportunities near you.
+                </p>
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="text-center">
+                    <Users className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Community Impact</h3>
+                    <p className="text-sm text-gray-600">Join thousands of volunteers making a difference</p>
+                  </div>
+                  <div className="text-center">
+                    <Clock className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Flexible Schedule</h3>
+                    <p className="text-sm text-gray-600">Volunteer when it works for your schedule</p>
+                  </div>
+                  <div className="text-center">
+                    <Award className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Track Progress</h3>
+                    <p className="text-sm text-gray-600">Monitor your volunteer hours and impact</p>
+                  </div>
+                </div>
+                <p className="text-gray-500">
+                  Sign in using the buttons in the top-right corner to get started
+                </p>
+              </div>
+            </div>
+          )}
 
-          {/* Call to Action */}
-          <div className="mt-8 bg-primary text-white rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Make an Even Bigger Impact</h3>
-            <p className="mb-6 max-w-2xl mx-auto">
-              Invite friends to join our volunteer community and multiply your impact
-            </p>
-            <Button size="lg" variant="secondary">
-              Invite Volunteers
-            </Button>
-          </div>
+          {/* Call to Action - Only show for authenticated users */}
+          {user && (
+            <div className="mt-8 bg-primary text-white rounded-2xl p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Make an Even Bigger Impact</h3>
+              <p className="mb-6 max-w-2xl mx-auto">
+                Invite friends to join our volunteer community and multiply your impact
+              </p>
+              <Button size="lg" variant="secondary">
+                Invite Volunteers
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
