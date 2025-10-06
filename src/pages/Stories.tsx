@@ -137,7 +137,7 @@ const Stories = () => {
             <p className="text-xl text-gray-600 mb-8">
               If you or someone you know has been impacted by BrightStep Foundation, we'd love to hear from you.
             </p>
-            <a href="/contact" className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            <a href="/report" className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
               Share Your Story
             </a>
           </div>
