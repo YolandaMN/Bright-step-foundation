@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import logoIcon from "@/assets/Brightstep home.png";
 
 const Hero = () => {
   return (
@@ -22,16 +23,20 @@ const Hero = () => {
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+              <Button size="lg" variant="outline" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[hsl(var(--charcoal))] transition-colors" asChild>
                 <Link to="/about">Learn More</Link>
               </Button>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative hidden md:block">
             <div className="aspect-square rounded-2xl bg-primary/20 backdrop-blur-sm p-8 flex items-center justify-center">
               <div className="text-center space-y-4">
-                <div className="text-6xl font-bold text-primary">820+</div>
-                <div className="text-xl">Families Supported</div>
+                <img 
+                  src={logoIcon} 
+                  alt="BrightStep Foundation Logo" 
+                  className="w-auto h-auto mx-auto mb-2 opacity-80 object-contain"
+                />
+                
               </div>
             </div>
           </div>
