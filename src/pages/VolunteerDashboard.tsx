@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,63 +28,31 @@ const VolunteerDashboard = () => {
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
   const [facilityDistance, setFacilityDistance] = useState<number>(0);
   const { toast } = useToast();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  const checkUser = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/auth");
-        return;
-      }
-
-      setUser(session.user);
-
-      // Fetch or create profile
-      const { data: profileData, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", session.user.id)
-        .maybeSingle();
-
-      if (error && error.code !== "PGRST116") throw error;
-
-      if (!profileData) {
-        // Create profile if it doesn't exist
-        const { data: newProfile, error: insertError } = await supabase
-          .from("profiles")
-          .insert({
-            user_id: session.user.id,
-            full_name: session.user.user_metadata?.full_name || "",
-            email: session.user.email,
-          })
-          .select()
-          .single();
-
-        if (insertError) throw insertError;
-        setProfile(newProfile);
-      } else {
-        setProfile(profileData);
-      }
-    } catch (error: any) {
+  const handleCardClick = (facilityType: string) => {
+    if (!user) {
       toast({
-        title: "Error",
-        description: error.message,
+        title: "Authentication Required",
+        description: "Please sign in to access volunteer features.",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
+      return;
     }
+    setSelectedFacilityType(facilityType);
+    setMapModalOpen(true);
   };
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
+  const handleFacilityClick = (facility: Facility, distance: number) => {
+    setSelectedFacility(facility);
+    setFacilityDistance(distance);
+    setMapModalOpen(false);
+    setFacilityModalOpen(true);
+  };
+
+  const handleCloseModals = () => {
+    setMapModalOpen(false);
+    setFacilityModalOpen(false);
+    setSelectedFacility(null);
   };
 
   const handleCardClick = (facilityType: string) => {
@@ -124,14 +91,16 @@ const VolunteerDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
-                  Welcome back, {profile?.full_name || user?.email}!
+                  {user ? (
+                    <>Welcome back, {user.user_metadata?.name || user.email?.split('@')[0] || 'Volunteer'}!</>
+                  ) : (
+                    <>Welcome to Our Volunteer Dashboard</>
+                  )}
                 </h1>
-                <p className="text-gray-600">Your volunteer dashboard</p>
+                <p className="text-gray-600">
+                  {user ? 'Your volunteer dashboard' : 'Sign in to access volunteer features'}
+                </p>
               </div>
-              <Button variant="outline" onClick={handleSignOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
             </div>
           </div>
 
@@ -251,17 +220,52 @@ const VolunteerDashboard = () => {
               </CardContent>
             </Card>
           </div>
+          ) : (
+            /* Non-authenticated content */
+            <div className="text-center bg-white rounded-2xl p-12">
+              <div className="max-w-2xl mx-auto">
+                <Heart className="h-16 w-16 text-primary mx-auto mb-6" />
+                <h2 className="text-3xl font-bold mb-4">Join Our Volunteer Community</h2>
+                <p className="text-gray-600 mb-8 text-lg">
+                  Connect with local facilities and make a difference in your community. 
+                  Sign in to access our interactive map and discover volunteer opportunities near you.
+                </p>
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="text-center">
+                    <Users className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Community Impact</h3>
+                    <p className="text-sm text-gray-600">Join thousands of volunteers making a difference</p>
+                  </div>
+                  <div className="text-center">
+                    <Clock className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Flexible Schedule</h3>
+                    <p className="text-sm text-gray-600">Volunteer when it works for your schedule</p>
+                  </div>
+                  <div className="text-center">
+                    <Award className="h-8 w-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Track Progress</h3>
+                    <p className="text-sm text-gray-600">Monitor your volunteer hours and impact</p>
+                  </div>
+                </div>
+                <p className="text-gray-500">
+                  Sign in using the buttons in the top-right corner to get started
+                </p>
+              </div>
+            </div>
+          )}
 
-          {/* Call to Action */}
-          <div className="mt-8 bg-primary text-white rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Make an Even Bigger Impact</h3>
-            <p className="mb-6 max-w-2xl mx-auto">
-              Invite friends to join our volunteer community and multiply your impact
-            </p>
-            <Button size="lg" variant="secondary">
-              Invite Volunteers
-            </Button>
-          </div>
+          {/* Call to Action - Only show for authenticated users */}
+          {user && (
+            <div className="mt-8 bg-primary text-white rounded-2xl p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Make an Even Bigger Impact</h3>
+              <p className="mb-6 max-w-2xl mx-auto">
+                Invite friends to join our volunteer community and multiply your impact
+              </p>
+              <Button size="lg" variant="secondary">
+                Invite Volunteers
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
