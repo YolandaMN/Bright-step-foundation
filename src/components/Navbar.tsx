@@ -39,10 +39,12 @@ const Navbar = () => {
     <nav className="bg-[hsl(var(--charcoal))] text-white sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">R</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src={logo} 
+              alt="BrightStep Foundation Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <span className="font-bold text-lg">BrightStep Foundation</span>
           </Link>
 
@@ -54,39 +56,9 @@ const Navbar = () => {
             <Link to="/courses" className="hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="hover:text-primary transition-colors">Volunteer</Link>
-            
-            {/* Auth Section */}
-            <div className="flex items-center space-x-3">
-              <Button variant="default" size="sm" asChild>
-                <Link to="/donate">Donate Now</Link>
-              </Button>
-              
-              {user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                      <User className="h-4 w-4" />
-                      <span>{user.user_metadata?.name || user.email?.split('@')[0] || 'User'}</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={handleSignOut} disabled={loading}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={() => openAuthModal('signin')}
-                  disabled={loading}
-                >
-                  Sign In
-                </Button>
-              )}
-            </div>
+            <Button variant="default" size="sm" asChild>
+              <Link to="/donate">Donate Now</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,7 +79,7 @@ const Navbar = () => {
             <Link to="/courses" className="block hover:text-primary transition-colors">Courses</Link>
             <Link to="/stories" className="block hover:text-primary transition-colors">Stories</Link>
             <Link to="/volunteer" className="block hover:text-primary transition-colors">Volunteer</Link>
-            <Button variant="default" size="sm" className="w-full mb-3" asChild>
+            <Button variant="default" size="sm" className="w-full" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
             

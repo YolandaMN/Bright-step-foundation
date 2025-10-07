@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Clock, Users, Award, MapPin } from "lucide-react";
+import { Heart, Clock, Users, Award, LogOut, MapPin } from "lucide-react";
 import { MapModal } from "@/components/MapModal";
 import { FacilityModal } from "@/components/FacilityModal";
 
@@ -19,12 +19,14 @@ interface Facility {
 }
 
 const VolunteerDashboard = () => {
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [mapModalOpen, setMapModalOpen] = useState(false);
   const [facilityModalOpen, setFacilityModalOpen] = useState(false);
   const [selectedFacilityType, setSelectedFacilityType] = useState<string>("");
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
   const [facilityDistance, setFacilityDistance] = useState<number>(0);
-  const { user, loading } = useAuth();
   const { toast } = useToast();
 
   const handleCardClick = (facilityType: string) => {
@@ -36,6 +38,24 @@ const VolunteerDashboard = () => {
       });
       return;
     }
+    setSelectedFacilityType(facilityType);
+    setMapModalOpen(true);
+  };
+
+  const handleFacilityClick = (facility: Facility, distance: number) => {
+    setSelectedFacility(facility);
+    setFacilityDistance(distance);
+    setMapModalOpen(false);
+    setFacilityModalOpen(true);
+  };
+
+  const handleCloseModals = () => {
+    setMapModalOpen(false);
+    setFacilityModalOpen(false);
+    setSelectedFacility(null);
+  };
+
+  const handleCardClick = (facilityType: string) => {
     setSelectedFacilityType(facilityType);
     setMapModalOpen(true);
   };
@@ -87,38 +107,37 @@ const VolunteerDashboard = () => {
           
 
           {/* Main Content */}
-          {user ? (
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                onClick={() => handleCardClick("Homeless Shelter")}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    Homeless Shelter Facilities
-                    <MapPin className="h-4 w-4 text-primary" />
-                  </CardTitle>
-                  <CardDescription>Click to find nearby shelter facilities</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Meal Service</p>
-                        <p className="text-sm text-gray-600">Tomorrow, 10:00 AM - 2:00 PM</p>
-                      </div>
-                      <p className="text-sm text-gray-500">Upcoming</p>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card 
+              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+              onClick={() => handleCardClick("Homeless Shelter")}
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  Homeless Shelter Facilities
+                  <MapPin className="h-4 w-4 text-primary" />
+                </CardTitle>
+                <CardDescription>Click to find nearby shelter facilities</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="font-semibold">Meal Service</p>
+                      <p className="text-sm text-gray-600">Tomorrow, 10:00 AM - 2:00 PM</p>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Tutoring Session</p>
-                        <p className="text-sm text-gray-600">Friday, 3:00 PM - 5:00 PM</p>
-                      </div>
-                      <p className="text-sm text-gray-500">This week</p>
-                    </div>
+                    <p className="text-sm text-gray-500">Upcoming</p>
                   </div>
-                  <Button className="w-full mt-4" variant="outline">
-                    View Facilities on Map
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="font-semibold">Tutoring Session</p>
+                      <p className="text-sm text-gray-600">Friday, 3:00 PM - 5:00 PM</p>
+                    </div>
+                    <p className="text-sm text-gray-500">This week</p>
+                  </div>
+                </div>
+                <Button className="w-full mt-4" variant="outline">
+                  View Facilities on Map
                 </Button>
               </CardContent>
             </Card>
