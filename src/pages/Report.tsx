@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Loader2, AlertCircle } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -61,11 +60,8 @@ const Report = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <div className="flex-1 bg-green-100 py-12 px-4">
-
-
+    <div className="flex flex-col">
+      <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-3xl">
           <div className="bg-green-50 rounded-2xl shadow-lg p-8">
 

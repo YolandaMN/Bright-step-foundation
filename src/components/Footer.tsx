@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -50,7 +50,7 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-gray-300">
+            <ul className="space-y-3 text-gray-300 mb-6">
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 mt-1 flex-shrink-0" />
                 <span>123 Hope Street, Community Center, City</span>
@@ -64,6 +64,37 @@ const Footer = () => {
                 <span>info@Brightstepfoundation.org</span>
               </li>
             </ul>
+            
+            {/* Social Media Icons */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3 text-white">Follow Us</h4>
+              <div className="flex gap-3">
+                <a 
+                  href="https://facebook.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors group"
+                >
+                  <Facebook className="h-5 w-5 text-gray-300 group-hover:text-white" />
+                </a>
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors group"
+                >
+                  <Instagram className="h-5 w-5 text-gray-300 group-hover:text-white" />
+                </a>
+                <a 
+                  href="https://twitter.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-primary/20 hover:bg-primary rounded-full flex items-center justify-center transition-colors group"
+                >
+                  <Twitter className="h-5 w-5 text-gray-300 group-hover:text-white" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

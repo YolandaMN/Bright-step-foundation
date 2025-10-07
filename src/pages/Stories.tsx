@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Quote } from "lucide-react";
 
@@ -43,11 +42,10 @@ const Stories = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <section className="animate-on-scroll bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Stories of Transformation</h1>
             <p className="text-xl opacity-90">
@@ -57,7 +55,7 @@ const Stories = () => {
         </section>
 
         {/* Stats Banner */}
-        <section className="bg-secondary py-12 px-4">
+        <section className="animate-on-scroll bg-secondary py-12 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
@@ -84,29 +82,51 @@ const Stories = () => {
         <section className="py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid md:grid-cols-2 gap-8">
-              {stories.map((story, index) => (
-                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="p-8">
-                    <div className="flex items-start gap-4 mb-6">
-                      <img 
-                        src={story.image} 
-                        alt={story.name}
-                        className="w-20 h-20 rounded-full object-cover"
-                      />
-                      <div>
-                        <h3 className="text-xl font-bold">{story.name}</h3>
-                        <p className="text-gray-600">Age {story.age}</p>
+              {stories.map((story, index) => {
+                // Calculate row and column for alternating pattern (2 cards per row)
+                const row = Math.floor(index / 2);
+                const col = index % 2;
+                
+                // Determine if this should be dark blue or primary blue
+                let isDarkBlue = false;
+                if (row % 2 === 0) {
+                  // Even rows: first card primary, second card dark blue
+                  isDarkBlue = col === 1;
+                } else {
+                  // Odd rows: first card dark blue, second card primary
+                  isDarkBlue = col === 0;
+                }
+                
+                const cardBg = isDarkBlue ? 'bg-[hsl(var(--charcoal))]' : 'bg-primary';
+                const textColor = 'text-white';
+                const nameColor = 'text-white';
+                const ageColor = 'text-gray-200';
+                const quoteColor = isDarkBlue ? 'text-white/20' : 'text-white/30';
+                
+                return (
+                  <div key={index} className={`${cardBg} rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
+                    <div className="p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <img 
+                          src={story.image} 
+                          alt={story.name}
+                          className="w-20 h-20 rounded-full object-cover"
+                        />
+                        <div>
+                          <h3 className={`text-xl font-bold ${nameColor}`}>{story.name}</h3>
+                          <p className={ageColor}>Age {story.age}</p>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <Quote className={`absolute -top-2 -left-2 h-8 w-8 ${quoteColor}`} />
+                        <p className={`${textColor} leading-relaxed pl-6 italic`}>
+                          "{story.story}"
+                        </p>
                       </div>
                     </div>
-                    <div className="relative">
-                      <Quote className="absolute -top-2 -left-2 h-8 w-8 text-primary/20" />
-                      <p className="text-gray-600 leading-relaxed pl-6 italic">
-                        "{story.story}"
-                      </p>
-                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

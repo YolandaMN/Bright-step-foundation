@@ -5,7 +5,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Heart, Users, Home, GraduationCap } from "lucide-react";
 
@@ -50,9 +49,8 @@ const Donate = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <div className="flex-1 bg-green-100">
+    <div className="flex flex-col">
+      <div className="flex-1 bg-secondary">
         {/* Hero */}
         <div className="bg-primary text-white py-16">
           <div className="container mx-auto px-4 text-center">

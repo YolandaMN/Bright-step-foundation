@@ -114,17 +114,321 @@ All colors MUST be HSL.
   }
 }
 
-/* Custom Leaflet Map Styles */
+/* Custom Leaflet Map Styles - Professional Edition */
 .leaflet-popup-content-wrapper {
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 .leaflet-popup-content {
   margin: 0 !important;
   line-height: 1.4 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
 }
 
 .leaflet-popup-tip {
   background: white !important;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.1) !important;
+}
+
+.professional-popup .leaflet-popup-close-button {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  background: rgba(0,0,0,0.1) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  text-align: center !important;
+  line-height: 20px !important;
+  font-size: 16px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.professional-popup .leaflet-popup-close-button:hover {
+  background: rgba(0,0,0,0.2) !important;
+}
+
+/* Facility marker animations */
+.facility-marker.professional {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Leaflet control styling */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.leaflet-control-zoom a {
+  background: white !important;
+  color: #374151 !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+/* Map tile styling for better contrast */
+.leaflet-container {
+  background: #f8fafc !important;
+}
+
+/* Navbar - Fixed and Immune to Animations */
+nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+  background: hsl(var(--charcoal)) !important;
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Ensure navbar and its children are never affected by page transitions */
+nav,
+nav *,
+nav * * {
+  transition: color 0.2s ease !important; /* Only allow color transitions for hover effects */
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Override any animation classes that might be applied to navbar */
+nav.animate-on-scroll,
+nav .animate-on-scroll {
+  animation: none !important;
+  transition: color 0.2s ease !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* Amazing Content Transitions */
+.content-transition {
+  padding-top: 64px; /* Account for fixed navbar */
+  min-height: calc(100vh - 64px);
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.content-hidden {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+}
+
+.content-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Pure Fade-In Sequential Content Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.content-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Navbar should remain fixed and not animate */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: hsl(var(--charcoal));
+}
+
+/* Page Transitions (Legacy - keeping for compatibility) */
+.page-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  will-change: opacity, transform;
+}
+
+.page-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth entrance animations for different content types */
+.animate-hero {
+  animation: fadeInHero 0.8s ease-out forwards;
+}
+
+.animate-card {
+  animation: fadeInCard 0.7s ease-out forwards;
+}
+
+.animate-text {
+  animation: fadeInText 0.6s ease-out forwards;
+}
+
+.animate-section {
+  animation: fadeInSection 0.7s ease-out forwards;
+}
+
+/* Pure fade-in keyframe animations */
+@keyframes fadeInHero {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInCard {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSection {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pure fade-in sequential animation delays */
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-5 { animation-delay: 0.5s; }
+.animate-delay-6 { animation-delay: 0.6s; }
+.animate-delay-7 { animation-delay: 0.7s; }
+.animate-delay-8 { animation-delay: 0.8s; }
+
+/* Mobile Menu Animation */
+.mobile-menu-enter {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced transitions for different screen sizes */
+@media (prefers-reduced-motion: no-preference) {
+  .content-transition {
+    transition: opacity 0.6s ease-out, 
+                transform 0.6s ease-out;
+  }
+  
+  .content-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  .content-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-on-scroll {
+    transition: all 0.6s ease-out;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .content-transition,
+  .animate-on-scroll,
+  .page-transition {
+    transition: opacity 0.2s ease;
+  }
+  
+  .content-hidden,
+  .page-hidden,
+  .animate-on-scroll {
+    opacity: 0;
+    transform: none;
+  }
+  
+  .content-visible,
+  .page-visible,
+  .content-fade-in {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .mobile-menu-enter {
+    animation: none;
+  }
+
+  .animate-delay-1,
+  .animate-delay-2,
+  .animate-delay-3,
+  .animate-delay-4,
+  .animate-delay-5,
+  .animate-delay-6,
+  .animate-delay-7,
+  .animate-delay-8 {
+    animation-delay: 0s;
+  }
+
+  .animate-hero,
+  .animate-card,
+  .animate-text,
+  .animate-section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
