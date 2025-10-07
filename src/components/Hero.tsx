@@ -17,11 +17,16 @@ const Hero = () => {
               We provide comprehensive support, rehabilitation, and education to help families break the cycle of poverty and build lasting futures.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="group">
-                <Link to="/donate">
-                  Donate Now
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <Button 
+                size="lg" 
+                className="group"
+                onClick={() => {
+                  const footer = document.querySelector('footer');
+                  footer?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Contact Us
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button size="lg" variant="outline" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[hsl(var(--charcoal))] transition-colors" asChild>
                 <Link to="/about">Learn More</Link>

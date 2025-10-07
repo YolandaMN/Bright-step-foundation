@@ -67,7 +67,7 @@ const VolunteerDashboard = () => {
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
+          <div className="bg-primary rounded-2xl shadow-sm p-8 mb-8">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
@@ -77,7 +77,7 @@ const VolunteerDashboard = () => {
                     <>Welcome to Our Volunteer Dashboard</>
                   )}
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-white-600">
                   {user ? 'Your volunteer dashboard' : 'Sign in to access volunteer features'}
                 </p>
               </div>
