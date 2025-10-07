@@ -63,7 +63,8 @@ const Report = () => {
     <div className="flex flex-col">
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-3xl">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-green-50 rounded-2xl shadow-lg p-8">
+
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                 <AlertCircle className="h-6 w-6 text-primary" />
@@ -77,7 +78,7 @@ const Report = () => {
             <div className="bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded">
               <p className="text-sm text-gray-700">
                 <strong>Confidential Reporting:</strong> All reports are treated with the utmost confidentiality. 
-                If this is an emergency, please call 911 immediately.
+                If this is an emergency, please call 10111 immediately.
               </p>
             </div>
 
