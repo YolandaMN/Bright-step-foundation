@@ -13,10 +13,10 @@ const Footer = () => {
             Your support can transform lives. Join us in restoring hope and rebuilding futures.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg" asChild>
+            <Button variant="default" size="lg" className="bg-white text-primary hover:bg-gray-100" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" asChild>
+            <Button variant="outline" size="lg" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-primary transition-colors" asChild>
               <Link to="/volunteer">Become a Volunteer</Link>
             </Button>
           </div>
