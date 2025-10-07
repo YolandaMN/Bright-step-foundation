@@ -39,10 +39,12 @@ const Navbar = () => {
     <nav className="bg-[hsl(var(--charcoal))] text-white sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">R</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src={logo} 
+              alt="BrightStep Foundation Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <span className="font-bold text-lg">BrightStep Foundation</span>
           </Link>
 
