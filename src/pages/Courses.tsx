@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Clock, Users, Calendar } from "lucide-react";
@@ -33,19 +40,21 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  // ✅ Notice popup state 
-  const [showNotice, setShowNotice] = useState(true); 
-  const [fadeOut, setFadeOut] = useState(false); 
+  const [showNotice, setShowNotice] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
-  useEffect(() => { 
-    const timer1 = setTimeout(() => setFadeOut(true), 3000); 
-    const timer2 = setTimeout(() => setShowNotice(false), 5000); 
+  // Slide-in notice
+  useEffect(() => {
+    const timer1 = setTimeout(() => setFadeOut(true), 3000);
+    const timer2 = setTimeout(() => setShowNotice(false), 5000);
 
-    return () => { 
-      clearTimeout(timer1); 
-      clearTimeout(timer2); }
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, []);
 
+  // Fetch courses
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -59,7 +68,23 @@ const Courses = () => {
         .order("start_date", { ascending: true });
 
       if (error) throw error;
-      setCourses(data || []);
+
+      let fetchedCourses: Course[] = data || [];
+
+      // Fill or duplicate until we have 9 cards
+      while (fetchedCourses.length < 9) {
+        fetchedCourses = [
+          ...fetchedCourses,
+          ...fetchedCourses.map((c, i) => ({
+            ...c,
+            id: `${c.id}-copy-${i}-${fetchedCourses.length}`,
+          })),
+        ];
+      }
+
+      fetchedCourses = fetchedCourses.slice(0, 9); // limit to exactly 9 cards
+
+      setCourses(fetchedCourses);
     } catch (error: any) {
       toast({
         title: "Error loading courses",
@@ -70,9 +95,6 @@ const Courses = () => {
       setLoading(false);
     }
   };
-
-  
-
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -90,27 +112,27 @@ const Courses = () => {
           </div>
         </div>
 
-   {showNotice && (
-  <div className="fixed top-20 right-4 z-[100]">
-    <div
-      className={`px-4 py-3 rounded-md shadow-lg 
-        ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
-         style={{ backgroundColor: "#c2a995ff" }}
-    >
-      ⚠️ Notice: Only participants enrolled at our center can access these courses. Thank you for understanding!
-    </div>
-  </div>
-)}
-
-
-
+        {/* Slide-in Notice */}
+        {showNotice && (
+          <div className="fixed top-20 right-4 z-[100]">
+            <div
+              className={`px-4 py-3 rounded-md shadow-lg font-medium
+                ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
+              style={{ backgroundColor: "#DDCECD", color: "#000" }}
+            >
+              ⚠️ Notice: Only participants enrolled at our center can access these
+              courses. Thank you for understanding!
+            </div>
+          </div>
+        )}
 
         {/* Courses Grid */}
         <div className="text-center container mx-auto px-4 py-12">
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4">Available Courses</h2>
             <p className="text-gray-600">
-              Browse our selection of courses designed to equip you with valuable skills for the future
+              Browse our selection of courses designed to equip you with valuable
+              skills for the future
             </p>
           </div>
 
@@ -121,11 +143,14 @@ const Courses = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {courses.map((course) => (
-                <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={course.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardHeader>
                     <div className="flex items-start justify-between mb-2">
                       <Badge className={categoryColors[course.category]}>
-                        {course.category.replace('_', ' ')}
+                        {course.category.replace("_", " ")}
                       </Badge>
                       <Badge variant="outline">{course.level}</Badge>
                     </div>
@@ -140,11 +165,16 @@ const Courses = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Users className="h-4 w-4" />
-                        <span>{course.enrolled_count}/{course.capacity} enrolled</span>
+                        <span>
+                          {course.enrolled_count}/{course.capacity} enrolled
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        <span>Starts {new Date(course.start_date).toLocaleDateString()}</span>
+                        <span>
+                          Starts{" "}
+                          {new Date(course.start_date).toLocaleDateString()}
+                        </span>
                       </div>
                     </div>
                   </CardContent>
@@ -157,40 +187,42 @@ const Courses = () => {
               ))}
             </div>
           )}
+        </div>
 
-          {/* Partnership Section */}
-          <div className="mt-16 bg-white rounded-2xl p-8 shadow-sm">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Our Education Partners</h3>
-                <p className="text-gray-600 mb-4">
-                  We partner with leading educational institutions and platforms to provide quality education:
-                </p>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    CAPS-aligned curriculum with local schools
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    Online courses through Coursera partnership
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    Vocational training with industry professionals
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    Life skills workshops and mentorship
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl p-8 text-center">
-                <BookOpen className="h-16 w-16 text-primary mx-auto mb-4" />
-                <p className="text-lg font-semibold">
-                  Join hundreds of students transforming their futures through education
-                </p>
-              </div>
+        {/* Partnership Section */}
+        <div className="mt-16 bg-white rounded-2xl p-8 shadow-sm">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Our Education Partners</h3>
+              <p className="text-gray-600 mb-4">
+                We partner with leading educational institutions and platforms to
+                provide quality education:
+              </p>
+              <ul className="space-y-2 text-gray-600">
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  CAPS-aligned curriculum with local schools
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  Online courses through Coursera partnership
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  Vocational training with industry professionals
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
+                  Life skills workshops and mentorship
+                </li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl p-8 text-center">
+              <BookOpen className="h-16 w-16 text-primary mx-auto mb-4" />
+              <p className="text-lg font-semibold">
+                Join hundreds of students transforming their futures through
+                education
+              </p>
             </div>
           </div>
         </div>
