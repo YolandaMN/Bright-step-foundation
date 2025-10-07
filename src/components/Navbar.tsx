@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/AuthModal";
 import { useToast } from "@/hooks/use-toast";
+import logo from "@/assets/brightstep logo white.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
