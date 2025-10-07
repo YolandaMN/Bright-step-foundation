@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Quote } from "lucide-react";
 
@@ -43,11 +42,10 @@ const Stories = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <section className="animate-on-scroll bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Stories of Transformation</h1>
             <p className="text-xl opacity-90">
@@ -57,7 +55,7 @@ const Stories = () => {
         </section>
 
         {/* Stats Banner */}
-        <section className="bg-secondary py-12 px-4">
+        <section className="animate-on-scroll bg-secondary py-12 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
