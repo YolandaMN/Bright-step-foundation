@@ -23,7 +23,7 @@ const About = () => {
       `}</style>
       <div className="flex flex-col bg-gray-50">
         {/* Hero Section */}
-        <section className="animate-on-scroll animate-hero bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
+        <section className="bg-primary text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About BrightStep Foundation</h1>
             <p className="text-xl opacity-90">
@@ -40,14 +40,14 @@ const About = () => {
               <div className="group perspective-1000 h-96">
                 <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
                   {/* Front of card */}
-                  <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-6">
-                      <Target className="h-8 w-8 text-teal-600" />
+                  <div className="absolute w-full h-full backface-hidden bg-[hsl(var(--charcoal))] rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
+                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                      <Target className="h-8 w-8 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold">Our Mission</h2>
+                    <h2 className="text-3xl font-bold text-white">Our Mission</h2>
                   </div>
                   {/* Back of card */}
-                  <div className="absolute w-full h-full backface-hidden bg-teal-600 rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
+                  <div className="absolute w-full h-full backface-hidden bg-[hsl(var(--charcoal))] rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
                     <p className="text-white leading-relaxed text-center">
                       To provide comprehensive support, shelter, education, and rehabilitation services to homeless children, 
                       children outside the school system, and victims of abuse. We believe every child deserves a safe environment 
@@ -60,14 +60,14 @@ const About = () => {
               <div className="group perspective-1000 h-96">
                 <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
                   {/* Front of card */}
-                  <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
-                      <Heart className="h-8 w-8 text-cyan-500" />
+                  <div className="absolute w-full h-full backface-hidden bg-[hsl(var(--charcoal))] rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
+                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                      <Heart className="h-8 w-8 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold">Our Vision</h2>
+                    <h2 className="text-3xl font-bold text-white">Our Vision</h2>
                   </div>
                   {/* Back of card */}
-                  <div className="absolute w-full h-full backface-hidden bg-teal-600 rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
+                  <div className="absolute w-full h-full backface-hidden bg-[hsl(var(--charcoal))] rounded-2xl shadow-lg p-8 flex items-center justify-center rotate-y-180">
                     <p className="text-white leading-relaxed text-center">
                       A world where no child is left behind. We envision communities where every child has access to education, 
                       healthcare, and the support needed to break the cycle of poverty and build a brighter future for themselves 
@@ -81,58 +81,58 @@ const About = () => {
         </section>
 
         {/* Our Values */}
-        <section className="animate-on-scroll animate-section animate-delay-2 bg-gray-100 py-16 px-4">
+        <section className="bg-[hsl(var(--charcoal))] py-16 px-4">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-4xl font-bold text-center mb-12">Our Core Values</h2>
+            <h2 className="text-4xl font-bold text-center mb-12 text-white">Our Core Values</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Heart className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-bold text-xl mb-2">Compassion</h3>
-                <p className="text-gray-600">We lead with empathy and understanding</p>
+                <h3 className="font-bold text-xl mb-2 text-white">Compassion</h3>
+                <p className="text-gray-300">We lead with empathy and understanding</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-bold text-xl mb-2">Community</h3>
-                <p className="text-gray-600">Together we create lasting change</p>
+                <h3 className="font-bold text-xl mb-2 text-white">Community</h3>
+                <p className="text-gray-300">Together we create lasting change</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Target className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-bold text-xl mb-2">Impact</h3>
-                <p className="text-gray-600">Measurable results that transform lives</p>
+                <h3 className="font-bold text-xl mb-2 text-white">Impact</h3>
+                <p className="text-gray-300">Measurable results that transform lives</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-bold text-xl mb-2">Excellence</h3>
-                <p className="text-gray-600">Quality in everything we do</p>
+                <h3 className="font-bold text-xl mb-2 text-white">Excellence</h3>
+                <p className="text-gray-300">Quality in everything we do</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Our Story */}
-        <section className="animate-on-scroll animate-text animate-delay-3 py-16 px-4">
+        <section className="bg-white py-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-4xl font-bold text-center mb-8">Our Story</h2>
-            <div className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
-              <p className="text-gray-600 leading-relaxed">
+            <div className="bg-primary rounded-2xl shadow-lg p-8 space-y-6">
+              <p className="text-white leading-relaxed">
                 The BrightStep Foundation was born from a simple but powerful belief: every child deserves a chance 
                 to thrive. What started as a small shelter has grown into a comprehensive support system that addresses 
                 the multifaceted challenges facing vulnerable children and their families.
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-white leading-relaxed">
                 Today, we operate an integrated model that combines immediate relief with long-term solutions. Our 
                 homeless shelter provides safe accommodation, our rehabilitation center offers therapeutic support, 
                 and our education programs equip children with the skills they need for a successful future.
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-white leading-relaxed">
                 With the support of over 400 volunteers and generous donors, we've been able to serve more than 820 
                 families, provide 1,200+ meals, and maintain a 95% rehabilitation success rate. But our work is far 
                 from over. Every day, more children need our help, and we're committed to being there for them.
