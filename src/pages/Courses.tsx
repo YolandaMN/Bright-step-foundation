@@ -33,6 +33,19 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
+  // ✅ Notice popup state 
+  const [showNotice, setShowNotice] = useState(true); 
+  const [fadeOut, setFadeOut] = useState(false); 
+
+  useEffect(() => { 
+    const timer1 = setTimeout(() => setFadeOut(true), 3000); 
+    const timer2 = setTimeout(() => setShowNotice(false), 5000); 
+
+    return () => { 
+      clearTimeout(timer1); 
+      clearTimeout(timer2); }
+  }, []);
+
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -58,6 +71,9 @@ const Courses = () => {
     }
   };
 
+  
+
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -74,12 +90,23 @@ const Courses = () => {
           </div>
         </div>
 
-        <div className="text-center bg-teal-100 text-teal-800 py-3 px-4 rounded-md mb-6 animate-pulseGrow" >
-            <p>⚠️ Notice: Only participants enrolled at our center can access these courses. Thank you for understanding!</p>
-        </div>
+   {showNotice && (
+  <div className="fixed top-20 right-4 z-[100]">
+    <div
+      className={`px-4 py-3 rounded-md shadow-lg 
+        ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
+         style={{ backgroundColor: "#c2a995ff" }}
+    >
+      ⚠️ Notice: Only participants enrolled at our center can access these courses. Thank you for understanding!
+    </div>
+  </div>
+)}
+
+
+
 
         {/* Courses Grid */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="text-center container mx-auto px-4 py-12">
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4">Available Courses</h2>
             <p className="text-gray-600">
