@@ -33,6 +33,19 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
+  // ✅ Notice popup state 
+  const [showNotice, setShowNotice] = useState(true); 
+  const [fadeOut, setFadeOut] = useState(false); 
+
+  useEffect(() => { 
+    const timer1 = setTimeout(() => setFadeOut(true), 3000); 
+    const timer2 = setTimeout(() => setShowNotice(false), 5000); 
+
+    return () => { 
+      clearTimeout(timer1); 
+      clearTimeout(timer2); }
+  }, []);
+
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -58,24 +71,42 @@ const Courses = () => {
     }
   };
 
+  
+
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-1 bg-secondary">
         {/* Hero Section */}
-        <div className="bg-primary text-white py-16">
+        <div className="bg-primary text-white py-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Education & Training Programs
+              Educational & Skills Development Programs
             </h1>
-            <p className="text-xl max-w-3xl mx-auto">
-              Empowering individuals through education, vocational training, and life skills development
+            <p className="text-4xl md:text-2xl font-bold max-w-3xl mx-auto">
+              Learn. Grow. Rise.
             </p>
           </div>
         </div>
 
+   {showNotice && (
+  <div className="fixed top-20 right-4 z-[100]">
+    <div
+      className={`px-4 py-3 rounded-md shadow-lg 
+        ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
+         style={{ backgroundColor: "#c2a995ff" }}
+    >
+      ⚠️ Notice: Only participants enrolled at our center can access these courses. Thank you for understanding!
+    </div>
+  </div>
+)}
+
+
+
+
         {/* Courses Grid */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="text-center container mx-auto px-4 py-12">
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4">Available Courses</h2>
             <p className="text-gray-600">

@@ -1,0 +1,23 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main figure (top center) -->
+  <circle cx="50" cy="20" r="6" fill="#4ECDC4"/>
+  
+  <!-- Left figure -->
+  <circle cx="34" cy="34" r="5" fill="#4ECDC4"/>
+  
+  <!-- Main body curves -->
+  <path d="M30 30 C30 45, 35 60, 50 75 C65 60, 70 45, 70 30" 
+        fill="#4ECDC4" opacity="0.8"/>
+  
+  <!-- Left arm -->
+  <path d="M12 28 C22 32, 28 33, 34 34" 
+        fill="none" stroke="#4ECDC4" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Right arm -->
+  <path d="M88 28 C78 32, 72 33, 66 34" 
+        fill="none" stroke="#4ECDC4" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Base ellipse -->
+  <ellipse cx="50" cy="85" rx="38" ry="8" 
+           fill="none" stroke="#4ECDC4" stroke-width="3"/>
+</svg>
