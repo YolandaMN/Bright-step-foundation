@@ -78,20 +78,24 @@ export default {
           to: {
             height: "0", },
       },
-
-         /* pulseGrow must live here (INSIDE keyframes) */
-        pulseGrow: {
-          "0%, 100%": { transform: "scale(1)", opacity: "1" },
-          "50%": { transform: "scale(1.05)", opacity: "0.97" },
-        },
-      },
-      
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        pulseGrow: "pulseGrow 2s ease-in-out infinite",
-      },
+       "slide-in-right": {
+      from: { opacity: "0", transform: "translateX(100%)" },
+      to: { opacity: "1", transform: "translateX(0)" },
+    },
+    "slide-out-right": {
+      from: { opacity: "1", transform: "translateX(0)" },
+      to: { opacity: "0", transform: "translateX(100%)" },
     },
   },
+
+  animation: {
+    "accordion-down": "accordion-down 0.2s ease-out",
+    "accordion-up": "accordion-up 0.2s ease-out",
+
+    "slide-in-right": "slide-in-right 0.5s ease-out forwards",
+    "slide-out-right": "slide-out-right 0.5s ease-in forwards",
+  },
+ },
+},
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
