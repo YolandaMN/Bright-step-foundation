@@ -24,14 +24,15 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
   }, [location.pathname]);
 
   useEffect(() => {
-    // Enhanced staggered animation for content elements
+    // Smooth sequential animation for content elements
     if (isVisible) {
       const elements = document.querySelectorAll('.animate-on-scroll');
       elements.forEach((el, index) => {
         const element = el as HTMLElement;
+        // Shorter delays for smoother flow
         setTimeout(() => {
           element.classList.add('content-fade-in');
-        }, index * 100); // Faster stagger - 100ms intervals
+        }, index * 150); // 150ms between each element for smooth flow
       });
     } else {
       // Reset animations when page changes

@@ -6,23 +6,11 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Clock, Users, Award, MapPin } from "lucide-react";
 import { MapModal } from "@/components/MapModal";
-import { FacilityModal } from "@/components/FacilityModal";
 
-interface Facility {
-  id: number;
-  name: string;
-  type: string;
-  lat: number;
-  lng: number;
-  description: string;
-}
 
 const VolunteerDashboard = () => {
   const [mapModalOpen, setMapModalOpen] = useState(false);
-  const [facilityModalOpen, setFacilityModalOpen] = useState(false);
   const [selectedFacilityType, setSelectedFacilityType] = useState<string>("");
-  const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
-  const [facilityDistance, setFacilityDistance] = useState<number>(0);
   const { user, loading } = useAuth();
   const { toast } = useToast();
 
@@ -39,17 +27,8 @@ const VolunteerDashboard = () => {
     setMapModalOpen(true);
   };
 
-  const handleFacilityClick = (facility: Facility, distance: number) => {
-    setSelectedFacility(facility);
-    setFacilityDistance(distance);
-    setMapModalOpen(false);
-    setFacilityModalOpen(true);
-  };
-
   const handleCloseModals = () => {
     setMapModalOpen(false);
-    setFacilityModalOpen(false);
-    setSelectedFacility(null);
   };
 
   if (loading) {
@@ -65,7 +44,7 @@ const VolunteerDashboard = () => {
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="animate-on-scroll bg-white rounded-2xl shadow-sm p-8 mb-8">
+          <div className="animate-on-scroll animate-hero bg-white rounded-2xl shadow-sm p-8 mb-8">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
@@ -86,7 +65,7 @@ const VolunteerDashboard = () => {
 
           {/* Main Content */}
           {user ? (
-            <div className="animate-on-scroll grid md:grid-cols-3 gap-8">
+            <div className="animate-on-scroll animate-card animate-delay-1 grid md:grid-cols-3 gap-8">
               <Card 
                 className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
                 onClick={() => handleCardClick("Homeless Shelter")}
@@ -249,19 +228,11 @@ const VolunteerDashboard = () => {
       </div>
       <Footer />
       
-      {/* Modals */}
+      {/* Map Modal */}
       <MapModal
         isOpen={mapModalOpen}
         onClose={handleCloseModals}
         facilityType={selectedFacilityType}
-        onFacilityClick={handleFacilityClick}
-      />
-      
-      <FacilityModal
-        isOpen={facilityModalOpen}
-        onClose={handleCloseModals}
-        facility={selectedFacility}
-        distance={facilityDistance}
       />
     </div>
   );

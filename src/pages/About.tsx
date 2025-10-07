@@ -23,7 +23,7 @@ const About = () => {
       `}</style>
       <div className="flex flex-col bg-gray-50">
         {/* Hero Section */}
-        <section className="animate-on-scroll bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
+        <section className="animate-on-scroll animate-hero bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About BrightStep Foundation</h1>
             <p className="text-xl opacity-90">
@@ -33,7 +33,7 @@ const About = () => {
         </section>
 
         {/* Mission & Vision */}
-        <section className="animate-on-scroll py-16 px-4">
+        <section className="animate-on-scroll animate-card animate-delay-1 py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid md:grid-cols-2 gap-12">
               {/* Mission Card */}
@@ -81,7 +81,7 @@ const About = () => {
         </section>
 
         {/* Our Values */}
-        <section className="animate-on-scroll bg-gray-100 py-16 px-4">
+        <section className="animate-on-scroll animate-section animate-delay-2 bg-gray-100 py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Our Core Values</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -118,7 +118,7 @@ const About = () => {
         </section>
 
         {/* Our Story */}
-        <section className="animate-on-scroll py-16 px-4">
+        <section className="animate-on-scroll animate-text animate-delay-3 py-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-4xl font-bold text-center mb-8">Our Story</h2>
             <div className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
@@ -140,7 +140,7 @@ const About = () => {
             </div>
           </div>
         </section>
-        <div className="animate-on-scroll">
+        <div className="animate-on-scroll animate-text animate-delay-4">
           <Footer />
         </div>
       </div>
