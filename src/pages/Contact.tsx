@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-
+ 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
@@ -15,11 +15,11 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const { toast } = useToast();
-
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+ 
     // Simulate form submission
     setTimeout(() => {
       toast({
@@ -33,7 +33,7 @@ const Contact = () => {
       setLoading(false);
     }, 1000);
   };
-
+ 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -45,7 +45,7 @@ const Contact = () => {
               Have questions? We'd love to hear from you.
             </p>
           </div>
-
+ 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
@@ -99,7 +99,7 @@ const Contact = () => {
                 </Button>
               </form>
             </div>
-
+ 
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="bg-white rounded-2xl shadow-lg p-8">
@@ -139,7 +139,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-
+ 
               <div className="bg-primary text-white rounded-2xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">Emergency Hotline</h3>
                 <p className="mb-4">
@@ -156,5 +156,7 @@ const Contact = () => {
     </div>
   );
 };
-
+ 
 export default Contact;
+ 
+ 
