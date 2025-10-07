@@ -128,3 +128,230 @@ All colors MUST be HSL.
 .leaflet-popup-tip {
   background: white !important;
 }
+
+/* Navbar - Fixed and Immune to Animations */
+nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+  background: hsl(var(--charcoal)) !important;
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Ensure navbar and its children are never affected by page transitions */
+nav,
+nav *,
+nav * * {
+  transition: color 0.2s ease !important; /* Only allow color transitions for hover effects */
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Override any animation classes that might be applied to navbar */
+nav.animate-on-scroll,
+nav .animate-on-scroll {
+  animation: none !important;
+  transition: color 0.2s ease !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* Amazing Content Transitions */
+.content-transition {
+  padding-top: 64px; /* Account for fixed navbar */
+  min-height: calc(100vh - 64px);
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.content-hidden {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+}
+
+.content-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Enhanced Staggered Content Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px) scale(0.96);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.content-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Navbar should remain fixed and not animate */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: hsl(var(--charcoal));
+}
+
+/* Page Transitions (Legacy - keeping for compatibility) */
+.page-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  will-change: opacity, transform;
+}
+
+.page-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Amazing entrance animations for different content types */
+.animate-hero {
+  animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-card {
+  animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-text {
+  animation: textEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9) rotateX(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes textEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Staggered animation delays */
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-5 { animation-delay: 0.5s; }
+.animate-delay-6 { animation-delay: 0.6s; }
+
+/* Mobile Menu Animation */
+.mobile-menu-enter {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced transitions for different screen sizes */
+@media (prefers-reduced-motion: no-preference) {
+  .content-transition {
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .content-hidden {
+    opacity: 0;
+    transform: translateY(50px) scale(0.96);
+  }
+  
+  .content-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .animate-on-scroll {
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .content-transition,
+  .animate-on-scroll,
+  .page-transition {
+    transition: opacity 0.2s ease;
+  }
+  
+  .content-hidden,
+  .page-hidden,
+  .animate-on-scroll {
+    opacity: 0;
+    transform: none;
+  }
+  
+  .content-visible,
+  .page-visible,
+  .content-fade-in {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .mobile-menu-enter {
+    animation: none;
+  }
+
+  .animate-delay-1,
+  .animate-delay-2,
+  .animate-delay-3,
+  .animate-delay-4,
+  .animate-delay-5,
+  .animate-delay-6 {
+    animation-delay: 0s;
+  }
+
+  .animate-hero,
+  .animate-card,
+  .animate-text {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

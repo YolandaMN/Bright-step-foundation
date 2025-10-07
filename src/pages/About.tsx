@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar"; 
 import Footer from "@/components/Footer";
 import { Heart, Users, Target, Award } from "lucide-react";
 
@@ -22,9 +21,9 @@ const About = () => {
           transform: rotateY(180deg);
         }
       `}</style>
-      <div className="min-h-screen flex flex-col bg-gray-50"> <Navbar />
+      <div className="flex flex-col bg-gray-50">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
+        <section className="animate-on-scroll bg-gradient-to-r from-teal-600 to-cyan-500 text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About BrightStep Foundation</h1>
             <p className="text-xl opacity-90">
@@ -34,7 +33,7 @@ const About = () => {
         </section>
 
         {/* Mission & Vision */}
-        <section className="py-16 px-4">
+        <section className="animate-on-scroll py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid md:grid-cols-2 gap-12">
               {/* Mission Card */}
@@ -82,7 +81,7 @@ const About = () => {
         </section>
 
         {/* Our Values */}
-        <section className="bg-gray-100 py-16 px-4">
+        <section className="animate-on-scroll bg-gray-100 py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Our Core Values</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -119,7 +118,7 @@ const About = () => {
         </section>
 
         {/* Our Story */}
-        <section className="py-16 px-4">
+        <section className="animate-on-scroll py-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-4xl font-bold text-center mb-8">Our Story</h2>
             <div className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
@@ -141,7 +140,9 @@ const About = () => {
             </div>
           </div>
         </section>
-        <Footer />
+        <div className="animate-on-scroll">
+          <Footer />
+        </div>
       </div>
     </>
   );

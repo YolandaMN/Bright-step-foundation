@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Clock, Users, Award, MapPin } from "lucide-react";
@@ -62,12 +61,11 @@ const VolunteerDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="flex flex-col">
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
+          <div className="animate-on-scroll bg-white rounded-2xl shadow-sm p-8 mb-8">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold mb-2">
@@ -88,7 +86,7 @@ const VolunteerDashboard = () => {
 
           {/* Main Content */}
           {user ? (
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="animate-on-scroll grid md:grid-cols-3 gap-8">
               <Card 
                 className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
                 onClick={() => handleCardClick("Homeless Shelter")}

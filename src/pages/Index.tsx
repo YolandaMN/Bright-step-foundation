@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -9,16 +8,27 @@ import ReportButton from "@/components/ReportButton";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <Stats />
-      <Mission />
-      <Programs />
-      <Stories />
-      <Footer />
+    <>
+      <div className="animate-on-scroll">
+        <Hero />
+      </div>
+      <div className="animate-on-scroll">
+        <Stats />
+      </div>
+      <div className="animate-on-scroll">
+        <Mission />
+      </div>
+      <div className="animate-on-scroll">
+        <Programs />
+      </div>
+      <div className="animate-on-scroll">
+        <Stories />
+      </div>
+      <div className="animate-on-scroll">
+        <Footer />
+      </div>
       <ReportButton />
-    </div>
+    </>
   );
 };
 

@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[hsl(var(--charcoal))] text-white sticky top-0 z-50 shadow-md">
+    <nav className="bg-[hsl(var(--charcoal))] text-white shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3">
@@ -103,7 +103,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4 space-y-3">
+          <div className="md:hidden pb-4 space-y-3 mobile-menu-enter">
             <Link to="/" className="block hover:text-primary transition-colors">Home</Link>
             <Link to="/about" className="block hover:text-primary transition-colors">About</Link>
             <Link to="/programs" className="block hover:text-primary transition-colors">Programs</Link>
