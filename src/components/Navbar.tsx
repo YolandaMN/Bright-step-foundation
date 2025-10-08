@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, User, LogOut } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Menu, User, LogOut, UserCircle } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/AuthModal";
@@ -67,14 +67,42 @@ const Navbar = () => {
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="flex items-center space-x-2 hover:bg-white/10 text-white border border-white/20 rounded-md px-3 py-2"
+                    >
                       <User className="h-4 w-4" />
-                      <span>{user.user_metadata?.name || user.email?.split('@')[0] || 'User'}</span>
+                      <span className="hidden sm:inline">{user.user_metadata?.name || user.email?.split('@')[0] || 'User'}</span>
+                      <span className="sm:hidden">Account</span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={handleSignOut} disabled={loading}>
-                      <LogOut className="mr-2 h-4 w-4" />
+                  <DropdownMenuContent 
+                    align="end" 
+                    className="w-56 mt-2 bg-white border border-gray-200 shadow-lg rounded-md"
+                  >
+                    <div className="px-3 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {user.user_metadata?.name || 'User'}
+                      </p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                    </div>
+                    <DropdownMenuItem asChild>
+                      <Link 
+                        to="/profile"
+                        className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                      >
+                        <UserCircle className="mr-3 h-4 w-4" />
+                        Go to Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                      onClick={handleSignOut} 
+                      disabled={loading}
+                      className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      <LogOut className="mr-3 h-4 w-4" />
                       Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -121,6 +149,17 @@ const Navbar = () => {
                   <User className="h-4 w-4" />
                   <span className="text-sm">{user.user_metadata?.name || user.email?.split('@')[0] || 'User'}</span>
                 </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start"
+                  asChild
+                >
+                  <Link to="/profile">
+                    <UserCircle className="mr-2 h-4 w-4" />
+                    Go to Profile
+                  </Link>
+                </Button>
                 <Button 
                   variant="ghost" 
                   size="sm" 
