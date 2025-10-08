@@ -44,21 +44,62 @@ const VolunteerDashboard = () => {
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="bg-primary rounded-2xl shadow-sm p-8 mb-8">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
             <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">
-                  {user ? (
-                    <>Welcome back, {user.user_metadata?.name || user.email?.split('@')[0] || 'Volunteer'}!</>
-                  ) : (
-                    <>Welcome to Our Volunteer Dashboard</>
-                  )}
-                </h1>
-                <p className="text-white-600">
-                  {user ? 'Your volunteer dashboard' : 'Sign in to access volunteer features'}
-                </p>
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-primary rounded-xl">
+                  <Heart className="h-10 w-10 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                    {user ? (
+                      <>Welcome back, {user.user_metadata?.name || user.email?.split('@')[0] || 'Volunteer'}!</>
+                    ) : (
+                      <>Volunteer Services Dashboard</>
+                    )}
+                  </h1>
+                  <p className="text-gray-600 text-lg">
+                    {user ? 'Access your volunteer opportunities and track your community impact' : 'Professional volunteer coordination platform for community services'}
+                  </p>
+                </div>
               </div>
+              {user && (
+                <div className="text-right">
+                  <div className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full mb-2">
+                    VOLUNTEER PORTAL
+                  </div>
+                  <p className="text-sm text-gray-600">Active Member</p>
+                </div>
+              )}
             </div>
+            
+            {user && (
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Users className="h-5 w-5 text-primary" />
+                      <span className="text-2xl font-bold text-gray-800">1,247</span>
+                    </div>
+                    <p className="text-sm text-gray-600">Active Volunteers</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <MapPin className="h-5 w-5 text-primary" />
+                      <span className="text-2xl font-bold text-gray-800">28</span>
+                    </div>
+                    <p className="text-sm text-gray-600">Service Locations</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Clock className="h-5 w-5 text-primary" />
+                      <span className="text-2xl font-bold text-gray-800">5,432</span>
+                    </div>
+                    <p className="text-sm text-gray-600">Hours This Month</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           
