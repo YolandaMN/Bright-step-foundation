@@ -146,22 +146,12 @@ export default function Profile() {
         
         // Verify the save by re-fetching the profile
         await fetchProfile();
-        
-        toast({
-          title: "✅ Profile Updated Successfully!", 
-          description: `Your profile information has been saved. Name: ${basicProfileData.full_name || 'Not set'}, Phone: ${basicProfileData.phone || 'Not set'}`,
-        });
       } else if (saveResult.status === 200) {
         // Even if no data returned, 200 status means success
         console.log('Profile updated successfully (no data returned but status 200)');
         
         // Verify the save by re-fetching the profile
         await fetchProfile();
-        
-        toast({
-          title: "✅ Profile Updated!", 
-          description: "Your profile has been successfully saved to the database.",
-        });
       } else {
         throw new Error('Unexpected save result format');
       }
@@ -209,11 +199,6 @@ export default function Profile() {
       });
 
       if (error) throw error;
-
-      toast({
-        title: "Username Updated",
-        description: "Your display name has been successfully updated.",
-      });
     } catch (error: any) {
       toast({
         title: "Update Failed",
