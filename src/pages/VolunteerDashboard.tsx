@@ -230,34 +230,195 @@ const VolunteerDashboard = () => {
             </div>
           ) : (
             /* Non-authenticated content */
-            <div className="text-center bg-white rounded-2xl p-12">
-              <div className="max-w-2xl mx-auto">
-                <Heart className="h-16 w-16 text-primary mx-auto mb-6" />
-                <h2 className="text-3xl font-bold mb-4">Join Our Volunteer Community</h2>
-                <p className="text-gray-600 mb-8 text-lg">
-                  Connect with local facilities and make a difference in your community. 
-                  Sign in to access our interactive map and discover volunteer opportunities near you.
-                </p>
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="text-center">
-                    <Users className="h-8 w-8 text-primary mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">Community Impact</h3>
-                    <p className="text-sm text-gray-600">Join thousands of volunteers making a difference</p>
-                  </div>
-                  <div className="text-center">
-                    <Clock className="h-8 w-8 text-primary mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">Flexible Schedule</h3>
-                    <p className="text-sm text-gray-600">Volunteer when it works for your schedule</p>
-                  </div>
-                  <div className="text-center">
-                    <Award className="h-8 w-8 text-primary mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">Track Progress</h3>
-                    <p className="text-sm text-gray-600">Monitor your volunteer hours and impact</p>
+            <div className="space-y-8">
+              {/* Header Section */}
+              <div className="text-center bg-white rounded-2xl p-8">
+                <div className="max-w-2xl mx-auto">
+                  <Heart className="h-16 w-16 text-primary mx-auto mb-6" />
+                  <h2 className="text-3xl font-bold mb-4">Join Our Volunteer Community</h2>
+                  <p className="text-gray-600 mb-6 text-lg">
+                    Connect with local facilities and make a difference in your community. 
+                    Sign in to access our interactive map and discover volunteer opportunities near you.
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    Sign in using the buttons in the top-right corner to get started
+                  </p>
+                </div>
+              </div>
+
+              {/* Program Overview Cards */}
+              <div className="grid md:grid-cols-3 gap-8">
+                
+                {/* Homeless Shelter Preview Card */}
+                <Card className="border-l-4 border-l-emerald-600 bg-gradient-to-br from-emerald-50 to-white opacity-75">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="p-3 bg-emerald-100 rounded-lg">
+                        <Home className="h-8 w-8 text-emerald-700" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-1 rounded-full">
+                          HOUSING SERVICES
+                        </div>
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                      Homeless Shelter Program
+                    </CardTitle>
+                    <CardDescription className="text-gray-600">
+                      Emergency housing, meals, and essential support services for individuals and families experiencing homelessness
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-4 mb-6">
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-emerald-100">
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Emergency Shelter</p>
+                            <p className="text-sm text-gray-600">24/7 safe housing accommodation</p>
+                          </div>
+                        </div>
+                        <span className="text-xs text-emerald-700 font-medium">AVAILABLE</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-emerald-100">
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Meal Services</p>
+                            <p className="text-sm text-gray-600">Daily nutrition programs</p>
+                          </div>
+                        </div>
+                        <span className="text-xs text-emerald-700 font-medium">AVAILABLE</span>
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-gray-100 rounded-lg">
+                      <p className="text-sm text-gray-600 font-medium">Sign in to access facilities</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Rehabilitation Preview Card */}
+                <Card className="border-l-4 bg-gradient-to-br from-slate-50 to-white opacity-75" style={{ borderLeftColor: '#19647E' }}>
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="p-3 rounded-lg" style={{ backgroundColor: '#19647E20' }}>
+                        <Activity className="h-8 w-8" style={{ color: '#19647E' }} />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs font-semibold px-2 py-1 rounded-full" style={{ color: '#19647E', backgroundColor: '#19647E20' }}>
+                          HEALTH SERVICES
+                        </div>
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                      Rehabilitation Program
+                    </CardTitle>
+                    <CardDescription className="text-gray-600">
+                      Comprehensive addiction recovery, mental health support, and substance abuse treatment programs
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-4 mb-6">
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#19647E20' }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#19647E' }}></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Addiction Recovery</p>
+                            <p className="text-sm text-gray-600">Evidence-based treatment programs</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium" style={{ color: '#19647E' }}>AVAILABLE</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#19647E20' }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#19647E' }}></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Counseling Services</p>
+                            <p className="text-sm text-gray-600">Individual & group therapy</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium" style={{ color: '#19647E' }}>AVAILABLE</span>
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-gray-100 rounded-lg">
+                      <p className="text-sm text-gray-600 font-medium">Sign in to access facilities</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Education Preview Card */}
+                <Card className="border-l-4 bg-gradient-to-br from-slate-50 to-white opacity-75" style={{ borderLeftColor: '#28AFB0' }}>
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="p-3 rounded-lg" style={{ backgroundColor: '#28AFB020' }}>
+                        <BookOpen className="h-8 w-8" style={{ color: '#28AFB0' }} />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs font-semibold px-2 py-1 rounded-full" style={{ color: '#28AFB0', backgroundColor: '#28AFB020' }}>
+                          EDUCATION SERVICES
+                        </div>
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                      Education Program
+                    </CardTitle>
+                    <CardDescription className="text-gray-600">
+                      Adult literacy, job training, skills development, and educational opportunities for community advancement
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-4 mb-6">
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#28AFB020' }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#28AFB0' }}></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Skills Training</p>
+                            <p className="text-sm text-gray-600">Professional development programs</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium" style={{ color: '#28AFB0' }}>AVAILABLE</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#28AFB020' }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#28AFB0' }}></div>
+                          <div>
+                            <p className="font-semibold text-gray-800">Adult Literacy</p>
+                            <p className="text-sm text-gray-600">Reading & writing programs</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium" style={{ color: '#28AFB0' }}>AVAILABLE</span>
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-gray-100 rounded-lg">
+                      <p className="text-sm text-gray-600 font-medium">Sign in to access facilities</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Benefits Section */}
+              <div className="bg-white rounded-2xl p-8">
+                <div className="max-w-4xl mx-auto">
+                  <h3 className="text-2xl font-bold text-center mb-8">Why Volunteer With Us?</h3>
+                  <div className="grid md:grid-cols-3 gap-8">
+                    <div className="text-center">
+                      <Users className="h-12 w-12 text-primary mx-auto mb-4" />
+                      <h4 className="font-semibold mb-3 text-lg">Community Impact</h4>
+                      <p className="text-sm text-gray-600">Join thousands of volunteers making a real difference in local communities through direct service</p>
+                    </div>
+                    <div className="text-center">
+                      <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
+                      <h4 className="font-semibold mb-3 text-lg">Flexible Scheduling</h4>
+                      <p className="text-sm text-gray-600">Volunteer opportunities that fit your schedule with various time commitments available</p>
+                    </div>
+                    <div className="text-center">
+                      <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+                      <h4 className="font-semibold mb-3 text-lg">Professional Development</h4>
+                      <p className="text-sm text-gray-600">Gain valuable experience while contributing to meaningful social programs and services</p>
+                    </div>
                   </div>
                 </div>
-                <p className="text-gray-500">
-                  Sign in using the buttons in the top-right corner to get started
-                </p>
               </div>
             </div>
           )}
