@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
   Card,
@@ -28,10 +29,18 @@ interface Course {
 }
 
 const categoryColors: { [key: string]: string } = {
-  caps_curriculum: "bg-blue-500",
-  online: "bg-green-500",
-  vocational: "bg-orange-500",
-  life_skills: "bg-purple-500",
+  caps_curriculum: "bg-[hsl(195_67%_30%)]",
+  online: "bg-[hsl(195_67%_30%)]",
+  vocational: "bg-[hsl(185_70%_30%)]",
+  life_skills: "bg-[hsl(174_65%_42%)]",
+};
+
+// Add this **below categoryColors**
+const categoryNames: { [key: string]: string } = {
+  caps_curriculum: "CAPS Curriculum",
+  online: "Online Learning",
+  vocational: "Vocational Training",
+  life_skills: "Life Skills",
 };
 
 const Courses = () => {
@@ -95,8 +104,12 @@ const Courses = () => {
     }
   };
 
+  // Currently pasted 08.10
+ const coursesWithDuplicates = [...courses, ...courses, ...courses];
+
   return (
-    <div className="flex flex-col">
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
       <div className="flex-1 bg-secondary">
         {/* Hero Section */}
         <div className="bg-primary text-white py-10">
@@ -134,57 +147,62 @@ const Courses = () => {
             </p>
           </div>
 
-          {loading ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600">Loading courses...</p>
+
+        {loading ? (
+  <div className="text-center py-12">
+    <p className="text-gray-600">Loading courses...</p>
+  </div>
+) : (
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {courses.map((course, index) => (
+      <Card key={course.id} className="hover:shadow-lg transition-shadow w-[90%] mx-auto">
+        <CardHeader>
+          <div className="flex items-start justify-between mb-2">
+            <Badge className={`${categoryColors[course.category]} text-white px-2 py-1 rounded`}>
+              {categoryNames[course.category]}
+            </Badge>
+
+            {/* <Badge className={`${categoryColors[course.category]} text-white px-2 py-1 rounded`}>
+              {course.category.replace("_", " ")}
+            </Badge> */}
+            <Badge variant="outline">{course.level}</Badge>
+          </div>
+          <CardTitle className="text-xl">{course.title}</CardTitle>
+          <CardDescription>{course.description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <span>{course.duration_weeks} weeks</span>
             </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course) => (
-                <Card
-                  key={course.id}
-                  className="hover:shadow-lg transition-shadow"
-                >
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-2">
-                      <Badge className={categoryColors[course.category]}>
-                        {course.category.replace("_", " ")}
-                      </Badge>
-                      <Badge variant="outline">{course.level}</Badge>
-                    </div>
-                    <CardTitle className="text-xl">{course.title}</CardTitle>
-                    <CardDescription>{course.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4" />
-                        <span>{course.duration_weeks} weeks</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        <span>
-                          {course.enrolled_count}/{course.capacity} enrolled
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
-                        <span>
-                          Starts{" "}
-                          {new Date(course.start_date).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full" asChild>
-                      <a href="/contact">Enroll Now</a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              <span>
+                {course.enrolled_count}/{course.capacity} enrolled
+              </span>
             </div>
-          )}
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <span>
+                Starts {new Date(course.start_date).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button
+            className="w-full bg-[hsl(210_20%_20%)] text-white hover:bg-[hsl(210_25%_25%)]"
+            asChild
+          >
+            <a href="/contact">Enroll Now</a>
+          </Button>
+        </CardFooter>
+      </Card>
+    ))}
+  </div>
+)}
+
         </div>
 
         {/* Partnership Section */}
