@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin, Navigation, Home, Activity, BookOpen, Car, PersonStanding, Clock } from "lucide-react";
 
 declare global {
   interface Window {
@@ -71,6 +71,53 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
     const minZoom = 1;
     const maxZoom = 18;
     return Math.round(minZoom + (percentage / 100) * (maxZoom - minZoom));
+  };
+
+  // Get professional SVG icon based on facility type
+  const getSVGIcon = (type: string, color: string = "#374151", size: number = 20) => {
+    const icons: Record<string, string> = {
+      "Homeless Shelter": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="${color}"/></svg>`,
+      "Rehabilitation": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="${color}"/></svg>`,
+      "Education": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="${color}"/></svg>`,
+      "MapPin": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="${color}"/><circle cx="12" cy="10" r="3" fill="white"/></svg>`,
+      "Car": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="${color}"/></svg>`,
+      "PersonStanding": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4" r="2" fill="${color}"/><path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41L15.89 8.11z" fill="${color}"/></svg>`,
+      "Walking": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4" r="2" fill="${color}"/><path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41L15.89 8.11z" fill="${color}"/></svg>`,
+      "Distance": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="${color}" stroke-width="2" fill="none"/><circle cx="12" cy="10" r="3" fill="${color}"/><path d="M7 20h10" stroke="${color}" stroke-width="2"/><path d="M7 22h10" stroke="${color}" stroke-width="1"/></svg>`,
+      "Clock": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" fill="none"/><polyline points="12,6 12,12 16,14" stroke="${color}" stroke-width="2"/></svg>`,
+      "General": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" fill="none"/><path d="M12 8v8M8 12h8" stroke="${color}" stroke-width="2"/></svg>`
+    };
+    return icons[type] || icons["MapPin"];
+  };
+
+  // Volunteer positions by facility type
+  type VolunteerRole = { title: string; time: string; type: string; openings: number };
+  const getVolunteerPositions = (facilityType: string): VolunteerRole[] => {
+    const common: VolunteerRole[] = [
+      { title: "Administrative Assistant", time: "4 hrs/week", type: "On-site", openings: 2 },
+      { title: "Outreach Support", time: "Flexible", type: "Hybrid", openings: 3 },
+    ];
+    const byType: Record<string, VolunteerRole[]> = {
+      "Homeless Shelter": [
+        { title: "Meal Service Assistant", time: "Weekends", type: "On-site", openings: 4 },
+        { title: "Intake Support", time: "Evenings", type: "On-site", openings: 2 },
+        { title: "Clothing Drive Coordinator", time: "Project-based", type: "Hybrid", openings: 1 },
+        { title: "Shelter Attendant", time: "Night shift", type: "On-site", openings: 2 },
+      ],
+      "Rehabilitation": [
+        { title: "Peer Support Assistant", time: "Weekdays", type: "On-site", openings: 3 },
+        { title: "Wellness Workshop Facilitator", time: "Monthly", type: "On-site", openings: 1 },
+        { title: "Transport Support", time: "Mornings", type: "On-site", openings: 2 },
+        { title: "Records Assistant", time: "Part-time", type: "On-site", openings: 1 },
+      ],
+      "Education": [
+        { title: "Adult Literacy Tutor", time: "2 hrs/week", type: "On-site", openings: 3 },
+        { title: "Computer Lab Support", time: "Afternoons", type: "On-site", openings: 2 },
+        { title: "Program Assistant", time: "Weekdays", type: "On-site", openings: 2 },
+        { title: "Career Coaching Mentor", time: "Bi-weekly", type: "Hybrid", openings: 1 },
+      ],
+    };
+    return byType[facilityType] ? [...byType[facilityType]] : [...common];
   };
 
   // Generate facilities near the user's actual location
@@ -288,32 +335,32 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
             "Homeless Shelter": {
               color: "#059669",
               gradient: isClosest ? "linear-gradient(135deg, #10b981, #059669)" : "linear-gradient(135deg, #059669, #047857)",
-              emoji: "🏠",
+              icon: "Homeless Shelter",
               lightColor: "#f0fdf4",
               shadowColor: isClosest ? "rgba(16, 185, 129, 0.3)" : "rgba(5, 150, 105, 0.2)",
               category: "Housing Services"
             },
             "Rehabilitation": {
-              color: "#7c3aed",
-              gradient: isClosest ? "linear-gradient(135deg, #8b5cf6, #7c3aed)" : "linear-gradient(135deg, #7c3aed, #6d28d9)",
-              emoji: "�",
-              lightColor: "#faf5ff",
-              shadowColor: isClosest ? "rgba(139, 92, 246, 0.3)" : "rgba(124, 58, 237, 0.2)",
+              color: "#19647E",
+              gradient: isClosest ? "linear-gradient(135deg, #19647E, #164556)" : "linear-gradient(135deg, #19647E, #123248)",
+              icon: "Rehabilitation",
+              lightColor: "#f0f9ff",
+              shadowColor: isClosest ? "rgba(25, 100, 126, 0.3)" : "rgba(25, 100, 126, 0.2)",
               category: "Health Services"
             },
             "Education": {
-              color: "#dc2626",
-              gradient: isClosest ? "linear-gradient(135deg, #ef4444, #dc2626)" : "linear-gradient(135deg, #dc2626, #b91c1c)",
-              emoji: "📚",
-              lightColor: "#fef2f2",
-              shadowColor: isClosest ? "rgba(239, 68, 68, 0.3)" : "rgba(220, 38, 38, 0.2)",
+              color: "#28AFB0",
+              gradient: isClosest ? "linear-gradient(135deg, #28AFB0, #219899)" : "linear-gradient(135deg, #28AFB0, #1a7172)",
+              icon: "Education",
+              lightColor: "#f0fdfa",
+              shadowColor: isClosest ? "rgba(40, 175, 176, 0.3)" : "rgba(40, 175, 176, 0.2)",
               category: "Educational Services"
             }
           };
           return configs[type as keyof typeof configs] || {
             color: "#6b7280",
             gradient: "linear-gradient(135deg, #6b7280, #4b5563)",
-            emoji: "📍",
+            icon: "General",
             lightColor: "#f9fafb",
             shadowColor: "rgba(107, 114, 128, 0.2)",
             category: "General Services"
@@ -360,7 +407,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                   transform: translateX(-50%);
                   font-size: ${isClosest ? '16px' : '14px'};
                   line-height: 1;
-                ">${facilityConfig.emoji}</div>
+                ">${getSVGIcon(facilityConfig.icon)}</div>
                 
                 ${isClosest ? `
                   <div style="
@@ -416,7 +463,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                       align-items: center;
                       justify-content: center;
                       font-size: 20px;
-                    ">${facilityConfig.emoji}</div>
+                    ">${getSVGIcon(facilityConfig.icon)}</div>
                     
                     <div style="flex: 1;">
                       <h3 style="
@@ -462,6 +509,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                     border: 1px solid #f3f4f6;
                   ">
                     <div style="text-align: center;">
+                      <div style="margin-bottom: 8px;">${getSVGIcon('Distance')}</div>
                       <div style="
                         font-size: 20px;
                         font-weight: 700;
@@ -477,6 +525,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                     </div>
                     
                     <div style="text-align: center;">
+                      <div style="margin-bottom: 8px;">${getSVGIcon('Car')}</div>
                       <div style="
                         font-size: 20px;
                         font-weight: 700;
@@ -492,6 +541,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                     </div>
                     
                     <div style="text-align: center;">
+                      <div style="margin-bottom: 8px;">${getSVGIcon('Walking')}</div>
                       <div style="
                         font-size: 20px;
                         font-weight: 700;
@@ -504,6 +554,31 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                         font-weight: 500;
                         text-transform: uppercase;
                       ">Min Walk</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Available Volunteer Positions -->
+                  <div style="margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                      <h4 style="margin: 0; font-size: 14px; font-weight: 700; color: #0f172a; letter-spacing: 0.2px;">Available Volunteer Positions</h4>
+                      <span style="background: #e5f3ff; color: #075985; border: 1px solid #bfdbfe; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">Official</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+                      ${getVolunteerPositions(facility.type).slice(0,3).map(r => `
+                        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #ffffff;">
+                          <div style="width: 28px; height: 28px; background: #f1f5f9; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                            ${getSVGIcon('Clock', '#334155', 16)}
+                          </div>
+                          <div style="flex: 1;">
+                            <div style="font-size: 13px; font-weight: 700; color: #111827; line-height: 1.2;">${r.title}</div>
+                            <div style="display: flex; gap: 10px; margin-top: 3px;">
+                              <span style="font-size: 11px; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0; padding: 2px 6px; border-radius: 6px;">${r.time}</span>
+                              <span style="font-size: 11px; color: #075985; background: #e0f2fe; border: 1px solid #bae6fd; padding: 2px 6px; border-radius: 6px;">${r.type}</span>
+                            </div>
+                          </div>
+                          <div style="font-size: 11px; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 4px 6px; border-radius: 6px; font-weight: 700; white-space: nowrap;">${r.openings} open</div>
+                        </div>
+                      `).join('')}
                     </div>
                   </div>
                   
@@ -554,6 +629,63 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
               maxWidth: 380,
               closeButton: true
             });
+
+          // Add popup event listeners for positioning and map control
+          marker.on('popupopen', function(e) {
+            const mapContainer = map.getContainer();
+            if (mapContainer) {
+              mapContainer.classList.add('popup-open');
+              
+              // Disable all map interactions
+              map.dragging.disable();
+              map.touchZoom.disable();
+              map.doubleClickZoom.disable();
+              map.scrollWheelZoom.disable();
+              map.boxZoom.disable();
+              map.keyboard.disable();
+              if (map.tap) map.tap.disable();
+              
+              // Position popup at center of map viewport
+              setTimeout(() => {
+                const popup = e.popup.getElement();
+                const mapContainer = map.getContainer();
+                if (popup && mapContainer) {
+                  // Get map container dimensions
+                  const mapRect = mapContainer.getBoundingClientRect();
+                  const centerX = mapRect.width / 2;
+                  const centerY = mapRect.height / 2;
+                  
+                  // Position popup at center of map viewport
+                  popup.style.position = 'absolute';
+                  popup.style.left = `${centerX}px`;
+                  popup.style.top = `${centerY}px`;
+                  popup.style.transform = 'translate(-50%, -50%)';
+                  popup.style.zIndex = '1000';
+                  popup.classList.add('user-location-popup');
+                  
+                  // Hide the popup tip arrow
+                  const tip = popup.querySelector('.leaflet-popup-tip');
+                  if (tip) tip.style.display = 'none';
+                }
+              }, 10);
+            }
+          });
+
+          marker.on('popupclose', function(e) {
+            const mapContainer = map.getContainer();
+            if (mapContainer) {
+              mapContainer.classList.remove('popup-open');
+            }
+            
+            // Re-enable all map interactions
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.boxZoom.enable();
+            map.keyboard.enable();
+            if (map.tap) map.tap.enable();
+          });
 
           markersRef.current.push(marker);
         });
