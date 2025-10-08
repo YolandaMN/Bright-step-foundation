@@ -122,16 +122,17 @@ const VolunteerDashboard = () => {
 
               {/* Rehabilitation Card */}
               <Card 
-                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 border-l-purple-600 bg-gradient-to-br from-purple-50 to-white group"
+                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 bg-gradient-to-br from-slate-50 to-white group"
+                style={{ borderLeftColor: '#19647E' }}
                 onClick={() => handleCardClick("Rehabilitation")}
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
-                      <Activity className="h-8 w-8 text-purple-700" />
+                    <div className="p-3 rounded-lg group-hover:opacity-90 transition-colors" style={{ backgroundColor: '#19647E20' }}>
+                      <Activity className="h-8 w-8" style={{ color: '#19647E' }} />
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-semibold text-purple-700 bg-purple-100 px-2 py-1 rounded-full">
+                      <div className="text-xs font-semibold px-2 py-1 rounded-full" style={{ color: '#19647E', backgroundColor: '#19647E20' }}>
                         HEALTH SERVICES
                       </div>
                     </div>
@@ -145,28 +146,28 @@ const VolunteerDashboard = () => {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="space-y-4 mb-6">
-                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-100">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#19647E20' }}>
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#19647E' }}></div>
                         <div>
                           <p className="font-semibold text-gray-800">Addiction Recovery</p>
                           <p className="text-sm text-gray-600">Evidence-based treatment programs</p>
                         </div>
                       </div>
-                      <span className="text-xs text-purple-700 font-medium">ACTIVE</span>
+                      <span className="text-xs font-medium" style={{ color: '#19647E' }}>ACTIVE</span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-100">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#19647E20' }}>
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#19647E' }}></div>
                         <div>
                           <p className="font-semibold text-gray-800">Counseling Services</p>
                           <p className="text-sm text-gray-600">Individual & group therapy</p>
                         </div>
                       </div>
-                      <span className="text-xs text-purple-700 font-medium">ACTIVE</span>
+                      <span className="text-xs font-medium" style={{ color: '#19647E' }}>ACTIVE</span>
                     </div>
                   </div>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3">
+                  <Button className="w-full text-white font-semibold py-3 hover:opacity-90 transition-opacity" style={{ backgroundColor: '#19647E' }}>
                     <MapPin className="h-4 w-4 mr-2" />
                     Find Rehab Centers
                   </Button>
@@ -175,16 +176,17 @@ const VolunteerDashboard = () => {
 
               {/* Education Card */}
               <Card 
-                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 border-l-blue-600 bg-gradient-to-br from-blue-50 to-white group"
+                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 bg-gradient-to-br from-slate-50 to-white group"
+                style={{ borderLeftColor: '#28AFB0' }}
                 onClick={() => handleCardClick("Education")}
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                      <BookOpen className="h-8 w-8 text-blue-700" />
+                    <div className="p-3 rounded-lg group-hover:opacity-90 transition-colors" style={{ backgroundColor: '#28AFB020' }}>
+                      <BookOpen className="h-8 w-8" style={{ color: '#28AFB0' }} />
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-semibold text-blue-700 bg-blue-100 px-2 py-1 rounded-full">
+                      <div className="text-xs font-semibold px-2 py-1 rounded-full" style={{ color: '#28AFB0', backgroundColor: '#28AFB020' }}>
                         EDUCATION SERVICES
                       </div>
                     </div>
@@ -198,28 +200,28 @@ const VolunteerDashboard = () => {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="space-y-4 mb-6">
-                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-100">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#28AFB020' }}>
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#28AFB0' }}></div>
                         <div>
                           <p className="font-semibold text-gray-800">Skills Training</p>
                           <p className="text-sm text-gray-600">Professional development programs</p>
                         </div>
                       </div>
-                      <span className="text-xs text-blue-700 font-medium">ACTIVE</span>
+                      <span className="text-xs font-medium" style={{ color: '#28AFB0' }}>ACTIVE</span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-100">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border" style={{ borderColor: '#28AFB020' }}>
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#28AFB0' }}></div>
                         <div>
                           <p className="font-semibold text-gray-800">Adult Literacy</p>
                           <p className="text-sm text-gray-600">Reading & writing programs</p>
                         </div>
                       </div>
-                      <span className="text-xs text-blue-700 font-medium">ACTIVE</span>
+                      <span className="text-xs font-medium" style={{ color: '#28AFB0' }}>ACTIVE</span>
                     </div>
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3">
+                  <Button className="w-full text-white font-semibold py-3 hover:opacity-90 transition-opacity" style={{ backgroundColor: '#28AFB0' }}>
                     <MapPin className="h-4 w-4 mr-2" />
                     Find Education Centers
                   </Button>
