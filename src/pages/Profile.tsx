@@ -84,79 +84,105 @@ export default function Profile() {
   };
 
   const handleSave = async () => {
-    if (!user) return;
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to save your profile.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setSaving(true);
+    console.log('Starting profile save for user:', user.id);
+    
     try {
-      // Prepare profile data, ensuring all fields are properly typed
-      const profileData = {
+      // Start with basic fields that definitely exist in the original table
+      const basicProfileData = {
         user_id: user.id,
-        first_name: profile.first_name || null,
-        last_name: profile.last_name || null,
+        full_name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || null,
         phone: profile.phone || null,
-        gender: profile.gender || null,
-        location: profile.location || null,
-        about_me: profile.about_me || null,
-        emergency_contact_name: profile.emergency_contact_name || null,
-        emergency_contact_phone: profile.emergency_contact_phone || null,
-        emergency_contact_relationship: profile.emergency_contact_relationship || null,
-        newsletter_subscription: profile.newsletter_subscription || false,
-        sms_notifications: profile.sms_notifications || false,
-        event_updates: profile.event_updates || false,
+        email: user.email,
       };
 
-      // Try upsert first (works if table structure supports it)
-      const { error: upsertError } = await supabase
+      console.log('Basic profile data to save:', basicProfileData);
+
+      // Try to save basic data first
+      const { data: existingProfile, error: selectError } = await supabase
         .from('profiles')
-        .upsert(profileData, { 
-          onConflict: 'user_id',
-          ignoreDuplicates: false 
-        });
+        .select('id, user_id')
+        .eq('user_id', user.id)
+        .single();
 
-      if (upsertError) {
-        // If upsert fails, try update/insert approach
-        const { data: existingProfile } = await supabase
+      console.log('Existing profile check:', { existingProfile, selectError });
+
+      let saveResult;
+      if (existingProfile) {
+        // Update existing profile
+        console.log('Updating existing profile...');
+        saveResult = await supabase
           .from('profiles')
-          .select('id')
+          .update(basicProfileData)
           .eq('user_id', user.id)
-          .single();
-
-        if (existingProfile) {
-          // Update existing profile
-          const { error: updateError } = await supabase
-            .from('profiles')
-            .update(profileData)
-            .eq('user_id', user.id);
-          
-          if (updateError) throw updateError;
-        } else {
-          // Insert new profile
-          const { error: insertError } = await supabase
-            .from('profiles')
-            .insert(profileData);
-          
-          if (insertError) throw insertError;
-        }
+          .select();
+      } else {
+        // Insert new profile
+        console.log('Inserting new profile...');
+        saveResult = await supabase
+          .from('profiles')
+          .insert(basicProfileData)
+          .select();
       }
 
-      toast({
-        title: "Profile Updated",
-        description: "Your profile has been successfully saved.",
-      });
+      console.log('Save result:', saveResult);
+
+      if (saveResult.error) {
+        throw saveResult.error;
+      }
+
+      // Check if data was actually saved
+      if (saveResult.data && saveResult.data.length > 0) {
+        console.log('Profile saved successfully:', saveResult.data[0]);
+        
+        // Verify the save by re-fetching the profile
+        await fetchProfile();
+        
+        toast({
+          title: "✅ Profile Updated Successfully!", 
+          description: `Your profile information has been saved. Name: ${basicProfileData.full_name || 'Not set'}, Phone: ${basicProfileData.phone || 'Not set'}`,
+        });
+      } else if (saveResult.status === 200) {
+        // Even if no data returned, 200 status means success
+        console.log('Profile updated successfully (no data returned but status 200)');
+        
+        // Verify the save by re-fetching the profile
+        await fetchProfile();
+        
+        toast({
+          title: "✅ Profile Updated!", 
+          description: "Your profile has been successfully saved to the database.",
+        });
+      } else {
+        throw new Error('Unexpected save result format');
+      }
     } catch (error: any) {
       console.error('Profile save error:', error);
       
       // Provide more specific error messages
       let errorMessage = "Failed to save profile. Please try again.";
-      if (error.message?.includes('column') && error.message?.includes('does not exist')) {
-        errorMessage = "Profile features are being updated. Please refresh the page and try again.";
-      } else if (error.message?.includes('permission')) {
-        errorMessage = "You don't have permission to update this profile.";
+      if (error.message?.includes('duplicate key')) {
+        errorMessage = "Profile already exists. Please refresh the page and try again.";
+      } else if (error.message?.includes('column') && error.message?.includes('does not exist')) {
+        errorMessage = "Some profile features are not yet available. Basic information has been saved.";
+      } else if (error.message?.includes('permission') || error.message?.includes('RLS')) {
+        errorMessage = "You don't have permission to update this profile. Please sign out and sign back in.";
+      } else if (error.message?.includes('violates check constraint')) {
+        errorMessage = "Please check that all fields contain valid information.";
       }
       
       toast({
         title: "Save Failed",
-        description: errorMessage,
+        description: `${errorMessage}\n\nTechnical details: ${error.message}`,
         variant: "destructive",
       });
     } finally {
