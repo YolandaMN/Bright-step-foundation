@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Clock, Users, Award, MapPin } from "lucide-react";
+import { Heart, Clock, Users, Award, MapPin, Home, BookOpen, Activity } from "lucide-react";
 import { MapModal } from "@/components/MapModal";
 
 
@@ -66,118 +66,166 @@ const VolunteerDashboard = () => {
           {/* Main Content */}
           {user ? (
             <div className="animate-on-scroll animate-card animate-delay-1 grid md:grid-cols-3 gap-8">
+              
+              {/* Homeless Shelter Card */}
               <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 border-l-emerald-600 bg-gradient-to-br from-emerald-50 to-white group"
                 onClick={() => handleCardClick("Homeless Shelter")}
               >
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    Homeless Shelter Facilities
-                    <MapPin className="h-4 w-4 text-primary" />
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="p-3 bg-emerald-100 rounded-lg group-hover:bg-emerald-200 transition-colors">
+                      <Home className="h-8 w-8 text-emerald-700" />
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-1 rounded-full">
+                        HOUSING SERVICES
+                      </div>
+                    </div>
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                    Homeless Shelter Program
                   </CardTitle>
-                  <CardDescription>Click to find nearby shelter facilities</CardDescription>
+                  <CardDescription className="text-gray-600">
+                    Emergency housing, meals, and essential support services for individuals and families experiencing homelessness
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Meal Service</p>
-                        <p className="text-sm text-gray-600">Tomorrow, 10:00 AM - 2:00 PM</p>
+                <CardContent className="pt-0">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-emerald-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Emergency Shelter</p>
+                          <p className="text-sm text-gray-600">24/7 safe housing accommodation</p>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-500">Upcoming</p>
+                      <span className="text-xs text-emerald-700 font-medium">ACTIVE</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Tutoring Session</p>
-                        <p className="text-sm text-gray-600">Friday, 3:00 PM - 5:00 PM</p>
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-emerald-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Meal Services</p>
+                          <p className="text-sm text-gray-600">Daily nutrition programs</p>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-500">This week</p>
+                      <span className="text-xs text-emerald-700 font-medium">ACTIVE</span>
                     </div>
                   </div>
-                  <Button className="w-full mt-4" variant="outline">
-                    View Facilities on Map
-                </Button>
-              </CardContent>
-            </Card>
+                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Find Shelter Facilities
+                  </Button>
+                </CardContent>
+              </Card>
 
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-              onClick={() => handleCardClick("Rehabilitation")}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  Rehabilitation Facilities
-                  <MapPin className="h-4 w-4 text-primary" />
-                </CardTitle>
-                <CardDescription>Click to find nearby rehabilitation centers</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Monthly Goal</p>
-                        <p className="text-sm text-gray-600">Progress towards this month's target</p>
-                      </div>
-                      <p className="text-sm text-gray-500">20/30</p>
+              {/* Rehabilitation Card */}
+              <Card 
+                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 border-l-purple-600 bg-gradient-to-br from-purple-50 to-white group"
+                onClick={() => handleCardClick("Rehabilitation")}
+              >
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                      <Activity className="h-8 w-8 text-purple-700" />
                     </div>
-                    <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full" style={{ width: '67%' }} />
+                    <div className="text-right">
+                      <div className="text-xs font-semibold text-purple-700 bg-purple-100 px-2 py-1 rounded-full">
+                        HEALTH SERVICES
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold">Skills Development</p>
-                        <p className="text-sm text-gray-600">Badges earned this quarter</p>
+                  <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                    Rehabilitation Program
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Comprehensive addiction recovery, mental health support, and substance abuse treatment programs
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Addiction Recovery</p>
+                          <p className="text-sm text-gray-600">Evidence-based treatment programs</p>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-500">3/5</p>
+                      <span className="text-xs text-purple-700 font-medium">ACTIVE</span>
                     </div>
-                    <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full" style={{ width: '60%' }} />
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Counseling Services</p>
+                          <p className="text-sm text-gray-600">Individual & group therapy</p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-purple-700 font-medium">ACTIVE</span>
                     </div>
                   </div>
-                </div>
-                <Button className="w-full mt-4" variant="outline">
-                  View Facilities on Map
-                </Button>
-              </CardContent>
-            </Card>
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Find Rehab Centers
+                  </Button>
+                </CardContent>
+              </Card>
 
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-              onClick={() => handleCardClick("Education")}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  Education Facilities
-                  <MapPin className="h-4 w-4 text-primary" />
-                </CardTitle>
-                <CardDescription>Click to find nearby education centers</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">Shelter Support</p>
-                      <p className="text-sm text-gray-600">4 hours</p>
+              {/* Education Card */}
+              <Card 
+                className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4 border-l-blue-600 bg-gradient-to-br from-blue-50 to-white group"
+                onClick={() => handleCardClick("Education")}
+              >
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                      <BookOpen className="h-8 w-8 text-blue-700" />
                     </div>
-                    <p className="text-sm text-gray-500">2 days ago</p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">Education Program</p>
-                      <p className="text-sm text-gray-600">3 hours</p>
+                    <div className="text-right">
+                      <div className="text-xs font-semibold text-blue-700 bg-blue-100 px-2 py-1 rounded-full">
+                        EDUCATION SERVICES
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-500">5 days ago</p>
                   </div>
-                </div>
-                <Button className="w-full mt-4" variant="outline">
-                  View Facilities on Map
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+                  <CardTitle className="text-xl font-bold text-gray-800 mb-2">
+                    Education Program
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Adult literacy, job training, skills development, and educational opportunities for community advancement
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Skills Training</p>
+                          <p className="text-sm text-gray-600">Professional development programs</p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-blue-700 font-medium">ACTIVE</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-gray-800">Adult Literacy</p>
+                          <p className="text-sm text-gray-600">Reading & writing programs</p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-blue-700 font-medium">ACTIVE</span>
+                    </div>
+                  </div>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Find Education Centers
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           ) : (
             /* Non-authenticated content */
             <div className="text-center bg-white rounded-2xl p-12">
