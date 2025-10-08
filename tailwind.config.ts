@@ -79,12 +79,24 @@ export default {
             height: "0", },
       },
        "slide-in-right": {
-      from: { opacity: "0", transform: "translateX(100%)" },
-      to: { opacity: "1", transform: "translateX(0)" },
+      from: { 
+        opacity: "0", 
+        transform: "translateX(100%) scale(0.95)" 
+      },
+      to: { 
+        opacity: "1", 
+        transform: "translateX(0) scale(1)" 
+      },
     },
     "slide-out-right": {
-      from: { opacity: "1", transform: "translateX(0)" },
-      to: { opacity: "0", transform: "translateX(100%)" },
+      from: { 
+        opacity: "1", 
+        transform: "translateX(0) scale(1)" 
+      },
+      to: { 
+        opacity: "0", 
+        transform: "translateX(100%) scale(0.95)" 
+      },
     },
   },
 
@@ -92,8 +104,8 @@ export default {
     "accordion-down": "accordion-down 0.2s ease-out",
     "accordion-up": "accordion-up 0.2s ease-out",
 
-    "slide-in-right": "slide-in-right 0.5s ease-out forwards",
-    "slide-out-right": "slide-out-right 0.5s ease-in forwards",
+    "slide-in-right": "slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+    "slide-out-right": "slide-out-right 0.4s cubic-bezier(0.7, 0, 0.84, 0) forwards",
   },
  },
 },

@@ -114,42 +114,68 @@ All colors MUST be HSL.
   }
 }
 
-/* Custom Leaflet Map Styles - Professional Edition */
-.leaflet-popup-content-wrapper {
-  border-radius: 16px !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-  border: none !important;
-  padding: 0 !important;
+/* Map interaction disabling when popup is open */
+.leaflet-container.popup-open {
+  pointer-events: none !important;
 }
 
-.leaflet-popup-content {
-  margin: 0 !important;
-  line-height: 1.4 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
+.leaflet-container.popup-open .leaflet-popup {
+  pointer-events: auto !important;
 }
 
-.leaflet-popup-tip {
-  background: white !important;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.1) !important;
+/* Map dimming overlay when popup is open */
+.leaflet-container.popup-open::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 400;
+  pointer-events: none;
 }
 
-.professional-popup .leaflet-popup-close-button {
+/* Position popup at user location */
+.user-location-popup {
+  position: absolute !important;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+.user-location-popup .leaflet-popup-content-wrapper {
+  position: relative !important;
+  transform: none !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.user-location-popup .leaflet-popup-tip {
+  display: none !important;
+}
+
+.user-location-popup .leaflet-popup-close-button {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
-  background: rgba(0,0,0,0.1) !important;
-  color: white !important;
+  background: rgba(255,255,255,0.9) !important;
+  color: #374151 !important;
   border-radius: 50% !important;
-  width: 24px !important;
-  height: 24px !important;
+  width: 26px !important;
+  height: 26px !important;
   text-align: center !important;
-  line-height: 20px !important;
+  line-height: 22px !important;
   font-size: 16px !important;
   text-decoration: none !important;
-  font-weight: bold !important;
-  backdrop-filter: blur(4px) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  transition: all 0.2s ease !important;
+  z-index: 1001 !important;
+}
+
+.user-location-popup .leaflet-popup-close-button:hover {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #dc2626 !important;
+  transform: scale(1.05) !important;
 }
 
 .professional-popup .leaflet-popup-close-button:hover {
