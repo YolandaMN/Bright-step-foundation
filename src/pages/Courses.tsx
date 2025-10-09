@@ -44,8 +44,8 @@ const Courses = () => {
 
   // Slide-in notice
   useEffect(() => {
-    const timer1 = setTimeout(() => setFadeOut(true), 3000);
-    const timer2 = setTimeout(() => setShowNotice(false), 5000);
+    const timer1 = setTimeout(() => setFadeOut(true), 4000); // Show for 4 seconds
+    const timer2 = setTimeout(() => setShowNotice(false), 4600); // Fade out over 0.6 seconds
 
     return () => {
       clearTimeout(timer1);
@@ -112,14 +112,35 @@ const Courses = () => {
 
         {/* Slide-in Notice */}
         {showNotice && (
-          <div className="fixed top-20 right-4 z-[100]">
+          <div className="fixed top-[160px] md:top-[180px] right-4 md:right-6 z-[100] max-w-sm">
             <div
-              className={`px-4 py-3 rounded-md shadow-lg font-medium
-                ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
-              style={{ backgroundColor: "#DDCECD", color: "#000" }}
+              className={`
+                bg-gradient-to-r from-white via-secondary to-white
+                border-l-4 border-primary 
+                text-foreground
+                px-6 py-4 
+                rounded-r-lg 
+                shadow-xl 
+                backdrop-blur-sm 
+                font-medium
+                border border-border/20
+                ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}
+              `}
             >
-              ⚠️ Notice: Only participants enrolled at our center can access these
-              courses. Thank you for understanding!
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                    <span className="text-primary-foreground text-xs font-bold">!</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-primary mb-1">Important Notice</h4>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Only participants enrolled at our center can access these courses. 
+                    Thank you for understanding!
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}

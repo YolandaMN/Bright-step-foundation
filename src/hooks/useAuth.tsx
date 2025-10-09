@@ -9,6 +9,9 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ data: any; error: any }>;
   signUp: (email: string, password: string, name?: string) => Promise<{ data: any; error: any }>;
   signOut: () => Promise<{ error: any }>;
+  updateProfile: (updates: { name?: string }) => Promise<{ error: any }>;
+  forgotPassword: (email: string) => Promise<{ data: any; error: any }>;
+  resetPassword: (password: string) => Promise<{ data: any; error: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -85,6 +88,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return result;
   };
 
+  const updateProfile = async (updates: { name?: string }) => {
+    setLoading(true);
+    const result = await supabase.auth.updateUser({
+      data: updates
+    });
+    setLoading(false);
+    return result;
+  };
+
+  const forgotPassword = async (email: string) => {
+    setLoading(true);
+    const result = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+    return result;
+  };
+
+  const resetPassword = async (password: string) => {
+    setLoading(true);
+    const result = await supabase.auth.updateUser({
+      password: password
+    });
+    setLoading(false);
+    return result;
+  };
+
   const value = {
     user,
     session,
@@ -92,6 +122,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signIn,
     signUp,
     signOut,
+    updateProfile,
+    forgotPassword,
+    resetPassword,
   };
 
   return (

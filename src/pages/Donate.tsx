@@ -58,7 +58,7 @@ const Donate = () => {
               Make a Difference Today
             </h1>
             <p className="text-xl max-w-2xl mx-auto">
-              Your donation transforms lives and builds futures
+              Your donation helps us provide hope, healing, and recovery to individuals and families affected by addiction. Every contribution supports therapy, housing, and skills training for those rebuilding their lives
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ const Donate = () => {
                         <div key={amt} className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
                           <RadioGroupItem value={amt.toString()} id={`amt-${amt}`} />
                           <Label htmlFor={`amt-${amt}`} className="cursor-pointer flex-1 text-center font-semibold">
-                            ${amt}
+                            R{amt}
                           </Label>
                         </div>
                       ))}
@@ -152,7 +152,7 @@ const Donate = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold mb-2">
-                    ${amount === "custom" ? customAmount || "0" : amount}
+                    R{amount === "custom" ? customAmount || "0" : amount}
                   </div>
                   <p className="text-sm opacity-90">
                     {frequency === "once" ? "One-time donation" : "Monthly donation"}
@@ -167,19 +167,19 @@ const Donate = () => {
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>$25</strong> provides meals for a family for one day</p>
+                    <p><strong>R25</strong> provides meals for a family for one day</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>$100</strong> covers one week of shelter support</p>
+                    <p><strong>R100</strong> covers one week of shelter support</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>$250</strong> funds a month of counseling sessions</p>
+                    <p><strong>R250</strong> funds a month of counseling sessions</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>$500</strong> sponsors a complete vocational training course</p>
+                    <p><strong>R500</strong> sponsors a complete vocational training course</p>
                   </div>
                 </CardContent>
               </Card>

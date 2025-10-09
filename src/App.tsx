@@ -15,6 +15,8 @@ import Donate from "./pages/Donate";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Stories from "./pages/Stories";
+import Profile from "./pages/Profile";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +44,8 @@ const App = () => (
               <Route path="/about" element={<ContentTransition><About /></ContentTransition>} />
               <Route path="/programs" element={<ContentTransition><Programs /></ContentTransition>} />
               <Route path="/stories" element={<ContentTransition><Stories /></ContentTransition>} />
+              <Route path="/profile" element={<ContentTransition><Profile /></ContentTransition>} />
+              <Route path="/reset-password" element={<ContentTransition><ResetPassword /></ContentTransition>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<ContentTransition><NotFound /></ContentTransition>} />
             </Routes>
