@@ -5,37 +5,37 @@ const Stories = () => {
   const stories = [
     {
       name: "Sarah M.",
-      age: 16,
+      age: 25,
       story: "When I came to BrightStep Foundation, I had nowhere to go and felt completely lost. The counselors here didn't just give me a place to sleep—they gave me hope. Through their education program, I'm now back in school and dreaming of becoming a teacher myself one day.",
       image: "https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?w=400&h=400&fit=crop"
     },
     {
       name: "Michael T.",
-      age: 14,
+      age: 37,
       story: "I was living on the streets after my family fell apart. The rehabilitation program helped me deal with my trauma, and now I'm learning carpentry skills. I've discovered I love working with my hands, and I'm excited about building a future for myself.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
     },
     {
       name: "Amina K.",
-      age: 15,
+      age: 22,
       story: "Thanks to BrightStep's partnership with my school and their CAPS program, I'm not just catching up—I'm excelling. The volunteers here believe in me more than I believed in myself. Now I'm helping other kids who are going through what I went through.",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop"
     },
     {
       name: "David L.",
-      age: 17,
+      age: 35,
       story: "After years of abuse, I didn't think I could trust anyone. The therapists and mentors at BrightStep showed me what healthy relationships look like. I've been here for two years, and I'm now preparing to go to college—something I never thought possible.",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop"
     },
     {
       name: "Grace N.",
-      age: 13,
+      age: 26,
       story: "I was pulled out of school by my circumstances, but BrightStep gave me a second chance. Their online courses and dedicated tutors helped me not just return to school, but become one of the top students in my class. I want to be a doctor now.",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop"
     },
     {
       name: "James P.",
-      age: 16,
+      age: 33,
       story: "The sports and arts programs at BrightStep helped me channel my energy in positive ways. I discovered I love painting, and my artwork has even been displayed in local galleries. This foundation doesn't just save lives—it helps us discover who we truly are.",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop"
     }
