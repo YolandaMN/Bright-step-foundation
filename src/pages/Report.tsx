@@ -11,8 +11,12 @@ import { useProfile } from "@/hooks/useProfile";
 import Footer from "@/components/Footer";
 import { Loader2, AlertCircle, UserCheck } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 const Report = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   const [loading, setLoading] = useState(false);
   const [reportType, setReportType] = useState("homeless_child");
   const [childName, setChildName] = useState("");
@@ -98,9 +102,9 @@ const Report = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex-1 bg-secondary py-12 px-4">
+      <div className="animate-on-scroll hero-element flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-3xl">
-          <div className="bg-green-50 rounded-2xl shadow-lg p-8">
+          <div className="animate-on-scroll slide-left card-element bg-green-50 rounded-2xl shadow-lg p-8">
 
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
@@ -112,14 +116,14 @@ const Report = () => {
               </div>
             </div>
 
-            <div className="bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded">
+            <div className="animate-on-scroll slide-right text-element bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded">
               <p className="text-sm text-gray-700">
                 <strong>Confidential Reporting:</strong> All reports are treated with the utmost confidentiality. 
                 If this is an emergency, please call 10111 immediately.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="animate-on-scroll slide-left card-element space-y-6">
               <div>
                 <Label className="text-base font-semibold mb-3 block">Type of Report</Label>
                 <RadioGroup value={reportType} onValueChange={setReportType}>
