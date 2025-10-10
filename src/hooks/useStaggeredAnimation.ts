@@ -1,37 +1,38 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export const useStaggeredAnimation = () => {
+export const useStaggeredAnimation = (dependencies: any[] = []) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Reset all animations when route changes
-    const resetAnimations = () => {
-      const elements = document.querySelectorAll('.animate-on-scroll');
-      elements.forEach((el) => {
-        const element = el as HTMLElement;
-        element.classList.remove('fade-in-up');
-        element.style.animationDelay = '';
-      });
-    };
-
-    // Trigger staggered animations
-    const triggerAnimations = () => {
-      const elements = document.querySelectorAll('.animate-on-scroll');
+    // Only assign direction classes, let ContentTransition handle all animations
+    const assignDirections = () => {
+      const elements = document.querySelectorAll('.animate-on-scroll:not(.slide-left):not(.slide-right):not(.auto-direction)');
       elements.forEach((el, index) => {
         const element = el as HTMLElement;
-        setTimeout(() => {
-          element.classList.add('fade-in-up');
-        }, index * 150); // 150ms stagger delay
+        
+        // Skip if already has direction class
+        if (element.classList.contains('slide-left') || 
+            element.classList.contains('slide-right') || 
+            element.classList.contains('hero-element')) {
+          return;
+        }
+
+        // Auto-assign strict alternating directions
+        if (index % 2 === 0) {
+          element.classList.add('slide-left');
+        } else {
+          element.classList.add('slide-right');
+        }
       });
     };
 
-    // Reset first, then trigger after a short delay
-    resetAnimations();
-    const timer = setTimeout(() => {
-      triggerAnimations();
-    }, 200); // Wait for page transition to start
+    // Small delay to ensure DOM is ready, then just assign directions
+    const setupTimer = setTimeout(() => {
+      assignDirections();
+      console.log('🎬 useStaggeredAnimation: Assigned directions for', location.pathname);
+    }, 50);
 
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+    return () => clearTimeout(setupTimer);
+  }, [location.pathname, ...dependencies]);
 };

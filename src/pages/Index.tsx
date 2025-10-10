@@ -5,26 +5,30 @@ import Mission from "@/components/Mission";
 import Programs from "@/components/Programs";
 import Stories from "@/components/Stories";
 import ReportButton from "@/components/ReportButton";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 const Index = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   return (
     <>
-      <div className="animate-on-scroll animate-hero">
+      <div className="animate-on-scroll hero-element">
         <Hero />
       </div>
-      <div className="animate-on-scroll animate-section animate-delay-1">
+      <div className="animate-on-scroll slide-left">
         <Stats />
       </div>
-      <div className="animate-on-scroll animate-text animate-delay-2">
+      <div className="animate-on-scroll slide-right text-element">
         <Mission />
       </div>
-      <div className="animate-on-scroll animate-card animate-delay-3">
+      <div className="animate-on-scroll slide-left card-element">
         <Programs />
       </div>
-      <div className="animate-on-scroll animate-section animate-delay-4">
+      <div className="animate-on-scroll slide-right card-element">
         <Stories />
       </div>
-      <div className="animate-on-scroll animate-text animate-delay-5">
+      <div className="animate-on-scroll text-element">
         <Footer />
       </div>
       <ReportButton />

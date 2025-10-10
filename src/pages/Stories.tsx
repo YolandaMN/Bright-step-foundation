@@ -1,7 +1,11 @@
 import Footer from "@/components/Footer";
 import { Quote } from "lucide-react";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 const Stories = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   const stories = [
     {
       name: "Sarah M.",
@@ -45,7 +49,7 @@ const Stories = () => {
     <div className="flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="animate-on-scroll bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <section className="animate-on-scroll hero-element bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Stories of Transformation</h1>
             <p className="text-xl opacity-90">
@@ -55,7 +59,7 @@ const Stories = () => {
         </section>
 
         {/* Stats Banner */}
-        <section className="animate-on-scroll bg-secondary py-12 px-4">
+        <section className="animate-on-scroll slide-left card-element bg-secondary py-12 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
@@ -103,8 +107,11 @@ const Stories = () => {
                 const ageColor = 'text-gray-200';
                 const quoteColor = isDarkBlue ? 'text-white/20' : 'text-white/30';
                 
+                // Add animation classes based on position
+                const animationClass = index % 2 === 0 ? 'slide-left' : 'slide-right';
+                
                 return (
-                  <div key={index} className={`${cardBg} rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
+                  <div key={index} className={`animate-on-scroll ${animationClass} card-element ${cardBg} rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
                     <div className="p-8">
                       <div className="flex items-start gap-4 mb-6">
                         <img 
@@ -132,7 +139,7 @@ const Stories = () => {
         </section>
 
         {/* Impact Statement */}
-        <section className="bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
+        <section className="animate-on-scroll slide-left text-element bg-gradient-to-r from-primary to-accent text-white py-16 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Every Child Has a Story</h2>
             <p className="text-xl opacity-90 mb-8">
@@ -151,7 +158,7 @@ const Stories = () => {
         </section>
 
         {/* Call to Share */}
-        <section className="py-16 px-4">
+        <section className="animate-on-scroll slide-right text-element py-16 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold mb-4">Have a Story to Share?</h2>
             <p className="text-xl text-gray-600 mb-8">
@@ -163,7 +170,9 @@ const Stories = () => {
           </div>
         </section>
       </main>
-      <Footer />
+      <div className="animate-on-scroll text-element">
+        <Footer />
+      </div>
     </div>
   );
 };
