@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { User, Save, AlertCircle, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 interface UserProfile {
   first_name?: string;
@@ -29,6 +30,9 @@ interface UserProfile {
 }
 
 export default function Profile() {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -245,7 +249,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-secondary">
       {/* Professional Header */}
-      <div className="bg-gradient-to-r from-primary to-primary/90 text-white py-8">
+      <div className="animate-on-scroll hero-element bg-gradient-to-r from-primary to-primary/90 text-white py-8">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -293,7 +297,7 @@ export default function Profile() {
         <div className="max-w-4xl mx-auto space-y-8">
           
           {/* Account Settings Section */}
-          <section className="space-y-6">
+          <section className="animate-on-scroll slide-left card-element space-y-6">
             <div className="flex items-center gap-3 pb-4 border-b border-muted">
               <div className="p-2 rounded-lg bg-primary/10">
                 <User className="h-5 w-5 text-primary" />
@@ -362,7 +366,7 @@ export default function Profile() {
           </section>
 
           {/* Personal Information Section */}
-          <section className="space-y-6">
+          <section className="animate-on-scroll slide-right card-element space-y-6">
             <div className="flex items-center gap-3 pb-4 border-b border-muted">
               <div className="p-2 rounded-lg bg-green-100">
                 <User className="h-5 w-5 text-green-700" />
@@ -453,7 +457,7 @@ export default function Profile() {
           </section>
 
           {/* Emergency Contact & Communication Section */}
-          <section className="space-y-6">
+          <section className="animate-on-scroll slide-left card-element space-y-6">
             <div className="flex items-center gap-3 pb-4 border-b border-muted">
               <div className="p-2 rounded-lg bg-orange-100">
                 <AlertCircle className="h-5 w-5 text-orange-700" />
