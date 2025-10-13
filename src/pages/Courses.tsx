@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+
 import Footer from "@/components/Footer";
 import {
   Card,
@@ -29,10 +30,10 @@ interface Course {
 }
 
 const categoryColors: { [key: string]: string } = {
-  caps_curriculum: "bg-blue-500",
-  online: "bg-green-500",
-  vocational: "bg-orange-500",
-  life_skills: "bg-purple-500",
+  caps_curriculum: "bg-[hsla(210,28%,32%,1.00)]",
+  online: "bg-[hsla(209,25%,38%,1.00)]",
+  vocational: "bg-[hsla(210,34%,42%,1.00)]",
+  life_skills: "bg-[hsla(210,44%,40%,1.00)]",
 };
 
 const Courses = () => {
@@ -205,8 +206,8 @@ const Courses = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full" asChild>
-                      <a href="/contact">Enroll Now</a>
+                    <Button className="w-full bg-[hsl(210_20%_20%)] text-white hover:bg-[hsl(210_25%_25%)]" asChild>
+                      <a href="#">Enroll Now</a>
                     </Button>
                   </CardFooter>
                 </Card>
