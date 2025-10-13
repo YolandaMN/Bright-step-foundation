@@ -6,9 +6,13 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Clock, Users, Award, MapPin, Home, BookOpen, Activity } from "lucide-react";
 import { MapModal } from "@/components/MapModal";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 
 const VolunteerDashboard = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   const [mapModalOpen, setMapModalOpen] = useState(false);
   const [selectedFacilityType, setSelectedFacilityType] = useState<string>("");
   const { user, loading } = useAuth();
@@ -44,7 +48,7 @@ const VolunteerDashboard = () => {
       <div className="flex-1 bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+          <div className="animate-on-scroll hero-element bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <div className="p-4 bg-primary rounded-xl">
@@ -106,7 +110,7 @@ const VolunteerDashboard = () => {
 
           {/* Main Content */}
           {user ? (
-            <div className="animate-on-scroll animate-card animate-delay-1 grid md:grid-cols-3 gap-8">
+            <div className="animate-on-scroll slide-left card-element grid md:grid-cols-3 gap-8">
               
               {/* Homeless Shelter Card */}
               <Card 
@@ -273,7 +277,7 @@ const VolunteerDashboard = () => {
             /* Non-authenticated content */
             <div className="space-y-8">
               {/* Header Section */}
-              <div className="text-center bg-white rounded-2xl p-8">
+              <div className="animate-on-scroll slide-right text-element text-center bg-white rounded-2xl p-8">
                 <div className="max-w-2xl mx-auto">
                   <Heart className="h-16 w-16 text-primary mx-auto mb-6" />
                   <h2 className="text-3xl font-bold mb-4">Join Our Volunteer Community</h2>
@@ -288,7 +292,7 @@ const VolunteerDashboard = () => {
               </div>
 
               {/* Program Overview Cards */}
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="animate-on-scroll slide-right card-element grid md:grid-cols-3 gap-8">
                 
                 {/* Homeless Shelter Preview Card */}
                 <Card className="border-l-4 border-l-emerald-600 bg-gradient-to-br from-emerald-50 to-white opacity-75">
@@ -466,7 +470,7 @@ const VolunteerDashboard = () => {
 
           {/* Call to Action - Only show for authenticated users */}
           {user && (
-            <div className="mt-8 bg-primary text-white rounded-2xl p-8 text-center">
+            <div className="animate-on-scroll slide-left text-element mt-8 bg-primary text-white rounded-2xl p-8 text-center">
               <h3 className="text-2xl font-bold mb-4">Make an Even Bigger Impact</h3>
               <p className="mb-6 max-w-2xl mx-auto">
                 Invite friends to join our volunteer community and multiply your impact
@@ -478,7 +482,9 @@ const VolunteerDashboard = () => {
           )}
         </div>
       </div>
-      <Footer />
+      <div className="animate-on-scroll text-element">
+        <Footer />
+      </div>
       
       {/* Map Modal */}
       <MapModal
