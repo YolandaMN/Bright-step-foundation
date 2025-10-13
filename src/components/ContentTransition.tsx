@@ -1,5 +1,12 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// Extend the Window interface to include our custom function
+declare global {
+  interface Window {
+    resetAllAnimations?: () => void;
+  }
+}
 
 interface ContentTransitionProps {
   children: ReactNode;
@@ -11,7 +18,7 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
   const location = useLocation();
 
   // Extract animation logic into reusable function
-  const triggerAnimations = () => {
+  const triggerAnimations = useCallback(() => {
     if (!isVisible) return;
     
     // First, animate hero elements
@@ -45,7 +52,7 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
         element.classList.add('content-fade-in');
       }, 400 + (index * 120)); // Start after text elements, with good stagger
     });
-  };
+  }, [isVisible]);
 
   useEffect(() => {
     // Reset visibility and scroll position when location changes
@@ -73,7 +80,7 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
     window.addEventListener('pageDataLoaded', handleDataLoaded);
     
     // Add global animation reset function for debugging
-    (window as any).resetAllAnimations = () => {
+    window.resetAllAnimations = () => {
       console.log('🔄 Manual animation reset triggered');
       const elements = document.querySelectorAll('.animate-on-scroll');
       elements.forEach((el) => {
@@ -86,7 +93,7 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
     };
     
     return () => window.removeEventListener('pageDataLoaded', handleDataLoaded);
-  }, [isVisible]);
+  }, [isVisible, triggerAnimations]);
 
   useEffect(() => {
     // Handle ALL animations in the correct order
@@ -100,7 +107,7 @@ const ContentTransition = ({ children, className = '' }: ContentTransitionProps)
         element.classList.remove('content-fade-in');
       });
     }
-  }, [isVisible]);
+  }, [isVisible, triggerAnimations]);
 
   return (
     <main 

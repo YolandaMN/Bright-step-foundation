@@ -25,9 +25,7 @@ const Index = () => {
       <div className="animate-on-scroll slide-left card-element">
         <Programs />
       </div>
-      <div className="animate-on-scroll slide-right card-element">
-        <Stories />
-      </div>
+      
       <div className="animate-on-scroll text-element">
         <Footer />
       </div>
