@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+
 import Footer from "@/components/Footer";
 import {
   Card,
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Clock, Users, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 interface Course {
   id: string;
@@ -28,16 +30,19 @@ interface Course {
 }
 
 const categoryColors: { [key: string]: string } = {
-  caps_curriculum: "bg-blue-500",
-  online: "bg-green-500",
-  vocational: "bg-orange-500",
-  life_skills: "bg-purple-500",
+  caps_curriculum: "bg-[hsla(210,28%,32%,1.00)]",
+  online: "bg-[hsla(209,25%,38%,1.00)]",
+  vocational: "bg-[hsla(210,34%,42%,1.00)]",
+  life_skills: "bg-[hsla(210,44%,40%,1.00)]",
 };
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  
+  // Add staggered animation hook
+  useStaggeredAnimation();
 
   const [showNotice, setShowNotice] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
@@ -84,6 +89,9 @@ const Courses = () => {
       fetchedCourses = fetchedCourses.slice(0, 9); // limit to exactly 9 cards
 
       setCourses(fetchedCourses);
+      
+      // Dispatch event to trigger animations
+      window.dispatchEvent(new CustomEvent('pageDataLoaded'));
     } catch (error: any) {
       toast({
         title: "Error loading courses",
@@ -99,7 +107,7 @@ const Courses = () => {
     <div className="flex flex-col">
       <div className="flex-1 bg-secondary">
         {/* Hero Section */}
-        <div className="bg-primary text-white py-10">
+        <div className="animate-on-scroll hero-element bg-primary text-white py-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Educational & Skills Development Programs
@@ -146,7 +154,7 @@ const Courses = () => {
         )}
 
         {/* Courses Grid */}
-        <div className="text-center container mx-auto px-4 py-12">
+        <div className="animate-on-scroll slide-left card-element text-center container mx-auto px-4 py-12">
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4">Available Courses</h2>
             <p className="text-gray-600">
@@ -161,10 +169,10 @@ const Courses = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course) => (
+              {courses.map((course, index) => (
                 <Card
                   key={course.id}
-                  className="hover:shadow-lg transition-shadow"
+                  className={`animate-on-scroll ${index % 2 === 0 ? 'slide-left' : 'slide-right'} card-element hover:shadow-lg transition-shadow`}
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between mb-2">
@@ -198,8 +206,8 @@ const Courses = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full" asChild>
-                      <a href="/contact">Enroll Now</a>
+                    <Button className="w-full bg-[hsl(210_20%_20%)] text-white hover:bg-[hsl(210_25%_25%)]" asChild>
+                      <a href="#">Enroll Now</a>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -209,7 +217,7 @@ const Courses = () => {
         </div>
 
         {/* Partnership Section */}
-        <div className="mt-16 bg-white rounded-2xl p-8 shadow-sm">
+        <div className="animate-on-scroll slide-left text-element mt-16 bg-white rounded-2xl p-8 shadow-sm">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Our Education Partners</h3>
@@ -246,7 +254,9 @@ const Courses = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="animate-on-scroll text-element">
+        <Footer />
+      </div>
     </div>
   );
 };

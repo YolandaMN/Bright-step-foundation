@@ -250,32 +250,116 @@ nav .animate-on-scroll {
 .content-transition {
   padding-top: 64px; /* Account for fixed navbar */
   min-height: calc(100vh - 64px);
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
 .content-hidden {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
+  transform: translateX(-60px) scale(0.98);
 }
 
 .content-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateX(0) scale(1);
 }
 
-/* Pure Fade-In Sequential Content Animations */
+/* Enhanced Sequential Content Animations with Direction-based Entrance */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
+/* Slide from left elements - no vertical movement */
+.animate-on-scroll.slide-left {
+  transform: translateX(-60px);
+}
+
+/* Slide from right elements - no vertical movement */
+.animate-on-scroll.slide-right {
+  transform: translateX(60px);
+}
+
+/* Default center slide - alternate from sides, no vertical */
+.animate-on-scroll:not(.slide-left):not(.slide-right) {
+  transform: translateX(-40px);
+}
+
+/* Final state for all animations - only horizontal movement */
 .content-fade-in {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: translateX(0) !important;
+}
+
+/* Hero sections - slide from left with scale */
+.animate-on-scroll.hero-element {
+  transform: translateX(-80px) scale(0.96);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-fade-in.hero-element {
+  transform: translateX(0) scale(1) !important;
+}
+
+/* Cards and sections - smooth side entrance */
+.animate-on-scroll.card-element {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Text elements - quick horizontal slide */
+.animate-on-scroll.text-element {
+  transition: opacity 0.25s ease-out, 
+              transform 0.25s ease-out;
+}
+
+/* Special animations for alternating content - pure horizontal */
+.animate-on-scroll:nth-child(even).auto-direction {
+  transform: translateX(-50px);
+}
+
+.animate-on-scroll:nth-child(odd).auto-direction {
+  transform: translateX(50px);
+}
+
+/* Mobile optimizations - reduce motion on smaller screens, pure horizontal */
+@media (max-width: 768px) {
+  .animate-on-scroll.slide-left {
+    transform: translateX(-50px);
+  }
+  
+  .animate-on-scroll.slide-right {
+    transform: translateX(50px);
+  }
+  
+  .animate-on-scroll.hero-element {
+    transform: translateX(-60px) scale(0.98);
+  }
+  
+  .animate-on-scroll:nth-child(even).auto-direction {
+    transform: translateX(-40px);
+  }
+
+  .animate-on-scroll:nth-child(odd).auto-direction {
+    transform: translateX(40px);
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+  
+  .content-transition {
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+  }
 }
 
 /* Navbar should remain fixed and not animate */
@@ -294,12 +378,12 @@ nav {
 
 .page-hidden {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(-50px);
 }
 
 .page-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 /* Smooth entrance animations for different content types */
@@ -320,47 +404,48 @@ nav {
 }
 
 /* Pure fade-in keyframe animations */
+/* Horizontal slide-in keyframe animations */
 @keyframes fadeInHero {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX(-80px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInCard {
   0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateX(60px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInText {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(-50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInSection {
   0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateX(70px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
 import { Heart, Users, Home, GraduationCap } from "lucide-react";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 const donationAmounts = [25, 50, 100, 250, 500];
 
@@ -34,6 +35,9 @@ const impactAreas = [
 ];
 
 const Donate = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   const [amount, setAmount] = useState("100");
   const [customAmount, setCustomAmount] = useState("");
   const [frequency, setFrequency] = useState("once");
@@ -52,7 +56,7 @@ const Donate = () => {
     <div className="flex flex-col">
       <div className="flex-1 bg-secondary">
         {/* Hero */}
-        <div className="bg-primary text-white py-16">
+        <div className="animate-on-scroll hero-element bg-primary text-white py-16">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Make a Difference Today
@@ -67,7 +71,7 @@ const Donate = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Donation Form */}
             <div className="lg:col-span-2">
-              <Card>
+              <Card className="animate-on-scroll slide-left card-element">
                 <CardHeader>
                   <CardTitle className="text-2xl">Choose Your Donation</CardTitle>
                   <CardDescription>Every contribution counts</CardDescription>
@@ -146,7 +150,7 @@ const Donate = () => {
 
             {/* Impact Summary */}
             <div className="space-y-6">
-              <Card className="bg-primary text-white">
+              <Card className="animate-on-scroll slide-right card-element bg-primary text-white">
                 <CardHeader>
                   <CardTitle>Your Impact</CardTitle>
                 </CardHeader>
@@ -160,7 +164,7 @@ const Donate = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="animate-on-scroll slide-right card-element">
                 <CardHeader>
                   <CardTitle>What Your Gift Provides</CardTitle>
                 </CardHeader>

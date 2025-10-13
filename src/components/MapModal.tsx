@@ -209,8 +209,8 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
       setUserLocation(location);
       console.log('User location:', location);
 
-      // Initialize map with 76% zoom level (level 14) for optimal view
-      const defaultZoomLevel = getZoomLevelFromPercentage(76); // 76% = level 14
+      // Initialize map with 71% zoom level (level 13) for optimal view
+      const defaultZoomLevel = getZoomLevelFromPercentage(71); // 71% = level 13
       const map = window.L.map(mapRef.current).setView([location.lat, location.lng], defaultZoomLevel);
       mapInstanceRef.current = map;
       setZoomLevel(defaultZoomLevel);
@@ -436,82 +436,95 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
             .addTo(map)
             .bindPopup(`
               <div style="
-                min-width: 320px;
-                max-width: 360px;
+                width: 360px;
                 padding: 0;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
                 background: white;
                 border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
                 border: 1px solid #e5e7eb;
+                overflow: hidden;
               ">
-                
-                <!-- Header -->
+                <!-- Header Section -->
                 <div style="
-                  background: #f8fafc;
+                  background: linear-gradient(135deg, ${facilityConfig.color}, ${facilityConfig.color}dd);
                   padding: 20px;
-                  border-bottom: 1px solid #e5e7eb;
+                  color: white;
                 ">
-                  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <div style="display: flex; align-items: center; gap: 16px;">
                     <div style="
-                      width: 40px;
-                      height: 40px;
-                      background: ${facilityConfig.color};
-                      border-radius: 8px;
+                      width: 48px;
+                      height: 48px;
+                      background: rgba(255, 255, 255, 0.2);
+                      border-radius: 12px;
                       display: flex;
                       align-items: center;
                       justify-content: center;
-                      font-size: 20px;
-                    ">${getSVGIcon(facilityConfig.icon)}</div>
-                    
-                    <div style="flex: 1;">
+                      flex-shrink: 0;
+                    ">
+                      ${getSVGIcon(facilityConfig.icon, 'white', 24)}
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
                       <h3 style="
                         margin: 0 0 4px 0;
-                        font-weight: 600;
                         font-size: 18px;
-                        color: #111827;
+                        font-weight: 700;
+                        color: white;
                         line-height: 1.2;
+                        word-wrap: break-word;
                       ">${facility.name}</h3>
-                      ${isClosest ? '<div style="display: inline-block; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">CLOSEST</div>' : ''}
+                      <div style="
+                        display: inline-block;
+                        background: rgba(255, 255, 255, 0.2);
+                        color: white;
+                        padding: 4px 12px;
+                        border-radius: 20px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                      ">${facility.type.toUpperCase()}</div>
                     </div>
                   </div>
-                  
-                  <div style="
-                    background: ${facilityConfig.lightColor};
-                    color: ${facilityConfig.color};
-                    padding: 6px 12px;
-                    border-radius: 6px;
-                    font-size: 12px;
-                    font-weight: 600;
-                    display: inline-block;
-                  ">${facility.type}</div>
                 </div>
-                
-                <!-- Content -->
+
+                <!-- Content Section -->
                 <div style="padding: 20px;">
+                  <!-- Description -->
                   <p style="
                     margin: 0 0 20px 0;
+                    color: #4b5563;
                     font-size: 14px;
-                    color: #6b7280;
-                    line-height: 1.5;
+                    line-height: 1.6;
                   ">${facility.description}</p>
                   
-                  <!-- Distance Info -->
+                  <!-- Distance & Time Info -->
                   <div style="
                     display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 12px;
-                    margin-bottom: 20px;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    gap: 16px;
+                    margin-bottom: 24px;
                     padding: 16px;
-                    background: #f9fafb;
-                    border-radius: 8px;
-                    border: 1px solid #f3f4f6;
+                    background: #f8fafc;
+                    border-radius: 10px;
+                    border: 1px solid #e2e8f0;
                   ">
                     <div style="text-align: center;">
-                      <div style="margin-bottom: 8px;">${getSVGIcon('Distance')}</div>
                       <div style="
-                        font-size: 20px;
+                        width: 32px;
+                        height: 32px;
+                        background: #3b82f6;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 8px auto;
+                      ">
+                        <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                      </div>
+                      <div style="
+                        font-size: 18px;
                         font-weight: 700;
                         color: #111827;
                         margin-bottom: 2px;
@@ -519,31 +532,28 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                       <div style="
                         font-size: 11px;
                         color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Miles</div>
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                      ">MILES</div>
                     </div>
                     
                     <div style="text-align: center;">
-                      <div style="margin-bottom: 8px;">${getSVGIcon('Car')}</div>
                       <div style="
-                        font-size: 20px;
-                        font-weight: 700;
-                        color: #111827;
-                        margin-bottom: 2px;
-                      ">${drivingTime}</div>
+                        width: 32px;
+                        height: 32px;
+                        background: #10b981;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 8px auto;
+                      ">
+                        <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
+                          <path d="M13.5 5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L9 8.3v4.7h2V9.6l-.2-.7z"/>
+                        </svg>
+                      </div>
                       <div style="
-                        font-size: 11px;
-                        color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Min Drive</div>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                      <div style="margin-bottom: 8px;">${getSVGIcon('Walking')}</div>
-                      <div style="
-                        font-size: 20px;
+                        font-size: 18px;
                         font-weight: 700;
                         color: #111827;
                         margin-bottom: 2px;
@@ -551,34 +561,38 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                       <div style="
                         font-size: 11px;
                         color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Min Walk</div>
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                      ">MIN WALK</div>
                     </div>
-                  </div>
-                  
-                  <!-- Available Volunteer Positions -->
-                  <div style="margin-bottom: 20px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                      <h4 style="margin: 0; font-size: 14px; font-weight: 700; color: #0f172a; letter-spacing: 0.2px;">Available Volunteer Positions</h4>
-                      <span style="background: #e5f3ff; color: #075985; border: 1px solid #bfdbfe; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">Official</span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
-                      ${getVolunteerPositions(facility.type).slice(0,3).map(r => `
-                        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #ffffff;">
-                          <div style="width: 28px; height: 28px; background: #f1f5f9; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
-                            ${getSVGIcon('Clock', '#334155', 16)}
-                          </div>
-                          <div style="flex: 1;">
-                            <div style="font-size: 13px; font-weight: 700; color: #111827; line-height: 1.2;">${r.title}</div>
-                            <div style="display: flex; gap: 10px; margin-top: 3px;">
-                              <span style="font-size: 11px; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0; padding: 2px 6px; border-radius: 6px;">${r.time}</span>
-                              <span style="font-size: 11px; color: #075985; background: #e0f2fe; border: 1px solid #bae6fd; padding: 2px 6px; border-radius: 6px;">${r.type}</span>
-                            </div>
-                          </div>
-                          <div style="font-size: 11px; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 4px 6px; border-radius: 6px; font-weight: 700; white-space: nowrap;">${r.openings} open</div>
-                        </div>
-                      `).join('')}
+                    
+                    <div style="text-align: center;">
+                      <div style="
+                        width: 32px;
+                        height: 32px;
+                        background: #8b5cf6;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 8px auto;
+                      ">
+                        <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
+                          <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                      </div>
+                      <div style="
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #111827;
+                        margin-bottom: 2px;
+                      ">${Math.ceil(walkingTime * 0.3)}</div>
+                      <div style="
+                        font-size: 11px;
+                        color: #6b7280;
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                      ">MIN DRIVE</div>
                     </div>
                   </div>
                   
@@ -588,7 +602,11 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                       onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${facility.lat},${facility.lng}', '_blank')" 
                       style="
                         flex: 1;
-                        padding: 12px 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                        padding: 14px 16px;
                         background: ${facilityConfig.color};
                         color: white;
                         border: none;
@@ -597,18 +615,26 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                         font-weight: 600;
                         cursor: pointer;
                         transition: all 0.2s ease;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                       "
-                      onmouseover="this.style.opacity='0.9';"
-                      onmouseout="this.style.opacity='1';">
-                      Get Directions
+                      onmouseover="this.style.opacity='0.9'; this.style.transform='translateY(-1px)';"
+                      onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                      </svg>
+                      Directions
                     </button>
                     
                     <button 
-                      onclick="alert('Application feature coming soon! Contact facility directly for now.')" 
+                      onclick="alert('For inquiries, please contact the facility directly. Contact information available on our main website.')" 
                       style="
                         flex: 1;
-                        padding: 12px 16px;
-                        background: #1f2937;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                        padding: 14px 16px;
+                        background: #374151;
                         color: white;
                         border: none;
                         border-radius: 8px;
@@ -616,10 +642,14 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                         font-weight: 600;
                         cursor: pointer;
                         transition: all 0.2s ease;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                       "
-                      onmouseover="this.style.opacity='0.9';"
-                      onmouseout="this.style.opacity='1';">
-                      Apply Now
+                      onmouseover="this.style.opacity='0.9'; this.style.transform='translateY(-1px)';"
+                      onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                      </svg>
+                      Contact
                     </button>
                   </div>
                 </div>
@@ -630,61 +660,13 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
               closeButton: true
             });
 
-          // Add popup event listeners for positioning and map control
-          marker.on('popupopen', function(e) {
-            const mapContainer = map.getContainer();
-            if (mapContainer) {
-              mapContainer.classList.add('popup-open');
-              
-              // Disable all map interactions
-              map.dragging.disable();
-              map.touchZoom.disable();
-              map.doubleClickZoom.disable();
-              map.scrollWheelZoom.disable();
-              map.boxZoom.disable();
-              map.keyboard.disable();
-              if (map.tap) map.tap.disable();
-              
-              // Position popup at center of map viewport
-              setTimeout(() => {
-                const popup = e.popup.getElement();
-                const mapContainer = map.getContainer();
-                if (popup && mapContainer) {
-                  // Get map container dimensions
-                  const mapRect = mapContainer.getBoundingClientRect();
-                  const centerX = mapRect.width / 2;
-                  const centerY = mapRect.height / 2;
-                  
-                  // Position popup at center of map viewport
-                  popup.style.position = 'absolute';
-                  popup.style.left = `${centerX}px`;
-                  popup.style.top = `${centerY}px`;
-                  popup.style.transform = 'translate(-50%, -50%)';
-                  popup.style.zIndex = '1000';
-                  popup.classList.add('user-location-popup');
-                  
-                  // Hide the popup tip arrow
-                  const tip = popup.querySelector('.leaflet-popup-tip');
-                  if (tip) tip.style.display = 'none';
-                }
-              }, 10);
-            }
-          });
+          console.log('Created marker for:', facility.name);
 
           marker.on('popupclose', function(e) {
             const mapContainer = map.getContainer();
             if (mapContainer) {
               mapContainer.classList.remove('popup-open');
             }
-            
-            // Re-enable all map interactions
-            map.dragging.enable();
-            map.touchZoom.enable();
-            map.doubleClickZoom.enable();
-            map.scrollWheelZoom.enable();
-            map.boxZoom.enable();
-            map.keyboard.enable();
-            if (map.tap) map.tap.enable();
           });
 
           markersRef.current.push(marker);
@@ -732,7 +714,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[95vh] p-0 overflow-hidden">
+      <DialogContent className="max-w-5xl max-h-[95vh] p-0 overflow-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
         <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-4 border-b">
           <DialogTitle className="flex items-center gap-3 text-white">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
