@@ -22,7 +22,7 @@ const Index = () => {
         <Programs />
       </div>
       <div className="animate-on-scroll animate-section animate-delay-4">
-        <Stories />
+        
       </div>
       <div className="animate-on-scroll animate-text animate-delay-5">
         <Footer />

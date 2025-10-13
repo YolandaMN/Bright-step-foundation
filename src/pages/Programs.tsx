@@ -152,23 +152,8 @@ const Programs = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Want to Get Involved?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Your support helps us expand our programs and reach more children in need
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/donate" className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                Donate Now
-              </a>
-              <a href="/volunteer" className="inline-block bg-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors">
-                Become a Volunteer
-              </a>
-            </div>
-          </div>
-        </section>
+       
+       
       </main>
       <Footer />
     </div>
