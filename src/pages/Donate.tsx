@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import { Heart, Users, Home, GraduationCap } from "lucide-react";
 import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
-const donationAmounts = [25, 50, 100, 250, 500];
+const donationAmounts = [100, 200, 400, 450, 800];
 
 const impactAreas = [
   {
@@ -171,19 +171,19 @@ const Donate = () => {
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>R25</strong> provides meals for a family for one day</p>
+                    <p><strong>R150</strong> provides meals for a family for one day</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>R100</strong> covers one week of shelter support</p>
+                    <p><strong>R400</strong> covers one week of shelter support</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>R250</strong> funds a month of counseling sessions</p>
+                    <p><strong>R450</strong> funds a month of counseling sessions</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                    <p><strong>R500</strong> sponsors a complete vocational training course</p>
+                    <p><strong>R800</strong> sponsors a complete vocational training course</p>
                   </div>
                 </CardContent>
               </Card>
