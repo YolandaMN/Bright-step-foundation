@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,13 +10,24 @@ import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 
 const VolunteerDashboard = () => {
-  // Add staggered animation hook
-  useStaggeredAnimation();
-  
   const [mapModalOpen, setMapModalOpen] = useState(false);
   const [selectedFacilityType, setSelectedFacilityType] = useState<string>("");
   const { user, loading } = useAuth();
   const { toast } = useToast();
+  
+  // Add staggered animation hook with user dependency to re-trigger when auth state changes
+  useStaggeredAnimation([user]);
+
+  // Re-trigger animations when user state changes (sign in/out)
+  useEffect(() => {
+    if (!loading) {
+      // User state has changed (either signed in or signed out)
+      // Dispatch event to re-trigger animations for the new content
+      setTimeout(() => {
+        window.dispatchEvent(new Event('pageDataLoaded'));
+      }, 100);
+    }
+  }, [user, loading]);
 
   const handleCardClick = (facilityType: string) => {
     if (!user) {
