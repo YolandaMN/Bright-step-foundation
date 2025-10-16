@@ -1,12 +1,16 @@
 import Footer from "@/components/Footer";
 import { Home, Heart, GraduationCap, Shield, Users, BookOpen } from "lucide-react";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 const Programs = () => {
+  // Add staggered animation hook
+  useStaggeredAnimation();
+  
   return (
     <div className="flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="animate-on-scroll bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
+        <section className="animate-on-scroll hero-element bg-gradient-to-r from-primary to-accent text-white py-20 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Programs</h1>
             <p className="text-xl opacity-90">
@@ -16,7 +20,7 @@ const Programs = () => {
         </section>
 
         {/* Integrated Longevity Model */}
-        <section className="animate-on-scroll py-16 px-4">
+        <section className="animate-on-scroll slide-left card-element py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Our Integrated Longevity Model</h2>
@@ -117,7 +121,7 @@ const Programs = () => {
         </section>
 
         {/* Additional Programs */}
-        <section className="bg-secondary py-16 px-4">
+        <section className="animate-on-scroll slide-right card-element bg-secondary py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Additional Support Services</h2>
             <div className="grid md:grid-cols-3 gap-8">
@@ -152,25 +156,11 @@ const Programs = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Want to Get Involved?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Your support helps us expand our programs and reach more children in need
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/donate" className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                Donate Now
-              </a>
-              <a href="/volunteer" className="inline-block bg-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors">
-                Become a Volunteer
-              </a>
-            </div>
-          </div>
-        </section>
+    
       </main>
-      <Footer />
+      <div className="animate-on-scroll text-element">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -114,42 +114,68 @@ All colors MUST be HSL.
   }
 }
 
-/* Custom Leaflet Map Styles - Professional Edition */
-.leaflet-popup-content-wrapper {
-  border-radius: 16px !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-  border: none !important;
-  padding: 0 !important;
+/* Map interaction disabling when popup is open */
+.leaflet-container.popup-open {
+  pointer-events: none !important;
 }
 
-.leaflet-popup-content {
-  margin: 0 !important;
-  line-height: 1.4 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
+.leaflet-container.popup-open .leaflet-popup {
+  pointer-events: auto !important;
 }
 
-.leaflet-popup-tip {
-  background: white !important;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.1) !important;
+/* Map dimming overlay when popup is open */
+.leaflet-container.popup-open::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 400;
+  pointer-events: none;
 }
 
-.professional-popup .leaflet-popup-close-button {
+/* Position popup at user location */
+.user-location-popup {
+  position: absolute !important;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+.user-location-popup .leaflet-popup-content-wrapper {
+  position: relative !important;
+  transform: none !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.user-location-popup .leaflet-popup-tip {
+  display: none !important;
+}
+
+.user-location-popup .leaflet-popup-close-button {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
-  background: rgba(0,0,0,0.1) !important;
-  color: white !important;
+  background: rgba(255,255,255,0.9) !important;
+  color: #374151 !important;
   border-radius: 50% !important;
-  width: 24px !important;
-  height: 24px !important;
+  width: 26px !important;
+  height: 26px !important;
   text-align: center !important;
-  line-height: 20px !important;
+  line-height: 22px !important;
   font-size: 16px !important;
   text-decoration: none !important;
-  font-weight: bold !important;
-  backdrop-filter: blur(4px) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  transition: all 0.2s ease !important;
+  z-index: 1001 !important;
+}
+
+.user-location-popup .leaflet-popup-close-button:hover {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #dc2626 !important;
+  transform: scale(1.05) !important;
 }
 
 .professional-popup .leaflet-popup-close-button:hover {
@@ -224,32 +250,116 @@ nav .animate-on-scroll {
 .content-transition {
   padding-top: 64px; /* Account for fixed navbar */
   min-height: calc(100vh - 64px);
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
 .content-hidden {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
+  transform: translateX(-60px) scale(0.98);
 }
 
 .content-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateX(0) scale(1);
 }
 
-/* Pure Fade-In Sequential Content Animations */
+/* Enhanced Sequential Content Animations with Direction-based Entrance */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
+/* Slide from left elements - no vertical movement */
+.animate-on-scroll.slide-left {
+  transform: translateX(-60px);
+}
+
+/* Slide from right elements - no vertical movement */
+.animate-on-scroll.slide-right {
+  transform: translateX(60px);
+}
+
+/* Default center slide - alternate from sides, no vertical */
+.animate-on-scroll:not(.slide-left):not(.slide-right) {
+  transform: translateX(-40px);
+}
+
+/* Final state for all animations - only horizontal movement */
 .content-fade-in {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: translateX(0) !important;
+}
+
+/* Hero sections - slide from left with scale */
+.animate-on-scroll.hero-element {
+  transform: translateX(-80px) scale(0.96);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-fade-in.hero-element {
+  transform: translateX(0) scale(1) !important;
+}
+
+/* Cards and sections - smooth side entrance */
+.animate-on-scroll.card-element {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Text elements - quick horizontal slide */
+.animate-on-scroll.text-element {
+  transition: opacity 0.25s ease-out, 
+              transform 0.25s ease-out;
+}
+
+/* Special animations for alternating content - pure horizontal */
+.animate-on-scroll:nth-child(even).auto-direction {
+  transform: translateX(-50px);
+}
+
+.animate-on-scroll:nth-child(odd).auto-direction {
+  transform: translateX(50px);
+}
+
+/* Mobile optimizations - reduce motion on smaller screens, pure horizontal */
+@media (max-width: 768px) {
+  .animate-on-scroll.slide-left {
+    transform: translateX(-50px);
+  }
+  
+  .animate-on-scroll.slide-right {
+    transform: translateX(50px);
+  }
+  
+  .animate-on-scroll.hero-element {
+    transform: translateX(-60px) scale(0.98);
+  }
+  
+  .animate-on-scroll:nth-child(even).auto-direction {
+    transform: translateX(-40px);
+  }
+
+  .animate-on-scroll:nth-child(odd).auto-direction {
+    transform: translateX(40px);
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+  
+  .content-transition {
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+  }
 }
 
 /* Navbar should remain fixed and not animate */
@@ -268,12 +378,12 @@ nav {
 
 .page-hidden {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(-50px);
 }
 
 .page-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 /* Smooth entrance animations for different content types */
@@ -294,47 +404,48 @@ nav {
 }
 
 /* Pure fade-in keyframe animations */
+/* Horizontal slide-in keyframe animations */
 @keyframes fadeInHero {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX(-80px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInCard {
   0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateX(60px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInText {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(-50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInSection {
   0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateX(70px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 

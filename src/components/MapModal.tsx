@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin, Navigation, Home, Activity, BookOpen, Car, PersonStanding, Clock } from "lucide-react";
 
 declare global {
   interface Window {
@@ -71,6 +71,53 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
     const minZoom = 1;
     const maxZoom = 18;
     return Math.round(minZoom + (percentage / 100) * (maxZoom - minZoom));
+  };
+
+  // Get professional SVG icon based on facility type
+  const getSVGIcon = (type: string, color: string = "#374151", size: number = 20) => {
+    const icons: Record<string, string> = {
+      "Homeless Shelter": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="${color}"/></svg>`,
+      "Rehabilitation": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="${color}"/></svg>`,
+      "Education": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="${color}"/></svg>`,
+      "MapPin": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="${color}"/><circle cx="12" cy="10" r="3" fill="white"/></svg>`,
+      "Car": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" fill="${color}"/></svg>`,
+      "PersonStanding": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4" r="2" fill="${color}"/><path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41L15.89 8.11z" fill="${color}"/></svg>`,
+      "Walking": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4" r="2" fill="${color}"/><path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41L15.89 8.11z" fill="${color}"/></svg>`,
+      "Distance": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="${color}" stroke-width="2" fill="none"/><circle cx="12" cy="10" r="3" fill="${color}"/><path d="M7 20h10" stroke="${color}" stroke-width="2"/><path d="M7 22h10" stroke="${color}" stroke-width="1"/></svg>`,
+      "Clock": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" fill="none"/><polyline points="12,6 12,12 16,14" stroke="${color}" stroke-width="2"/></svg>`,
+      "General": `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" fill="none"/><path d="M12 8v8M8 12h8" stroke="${color}" stroke-width="2"/></svg>`
+    };
+    return icons[type] || icons["MapPin"];
+  };
+
+  // Volunteer positions by facility type
+  type VolunteerRole = { title: string; time: string; type: string; openings: number };
+  const getVolunteerPositions = (facilityType: string): VolunteerRole[] => {
+    const common: VolunteerRole[] = [
+      { title: "Administrative Assistant", time: "4 hrs/week", type: "On-site", openings: 2 },
+      { title: "Outreach Support", time: "Flexible", type: "Hybrid", openings: 3 },
+    ];
+    const byType: Record<string, VolunteerRole[]> = {
+      "Homeless Shelter": [
+        { title: "Meal Service Assistant", time: "Weekends", type: "On-site", openings: 4 },
+        { title: "Intake Support", time: "Evenings", type: "On-site", openings: 2 },
+        { title: "Clothing Drive Coordinator", time: "Project-based", type: "Hybrid", openings: 1 },
+        { title: "Shelter Attendant", time: "Night shift", type: "On-site", openings: 2 },
+      ],
+      "Rehabilitation": [
+        { title: "Peer Support Assistant", time: "Weekdays", type: "On-site", openings: 3 },
+        { title: "Wellness Workshop Facilitator", time: "Monthly", type: "On-site", openings: 1 },
+        { title: "Transport Support", time: "Mornings", type: "On-site", openings: 2 },
+        { title: "Records Assistant", time: "Part-time", type: "On-site", openings: 1 },
+      ],
+      "Education": [
+        { title: "Adult Literacy Tutor", time: "2 hrs/week", type: "On-site", openings: 3 },
+        { title: "Computer Lab Support", time: "Afternoons", type: "On-site", openings: 2 },
+        { title: "Program Assistant", time: "Weekdays", type: "On-site", openings: 2 },
+        { title: "Career Coaching Mentor", time: "Bi-weekly", type: "Hybrid", openings: 1 },
+      ],
+    };
+    return byType[facilityType] ? [...byType[facilityType]] : [...common];
   };
 
   // Generate facilities near the user's actual location
@@ -162,8 +209,8 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
       setUserLocation(location);
       console.log('User location:', location);
 
-      // Initialize map with 76% zoom level (level 14) for optimal view
-      const defaultZoomLevel = getZoomLevelFromPercentage(76); // 76% = level 14
+      // Initialize map with 71% zoom level (level 13) for optimal view
+      const defaultZoomLevel = getZoomLevelFromPercentage(71); // 71% = level 13
       const map = window.L.map(mapRef.current).setView([location.lat, location.lng], defaultZoomLevel);
       mapInstanceRef.current = map;
       setZoomLevel(defaultZoomLevel);
@@ -288,32 +335,32 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
             "Homeless Shelter": {
               color: "#059669",
               gradient: isClosest ? "linear-gradient(135deg, #10b981, #059669)" : "linear-gradient(135deg, #059669, #047857)",
-              emoji: "🏠",
+              icon: "Homeless Shelter",
               lightColor: "#f0fdf4",
               shadowColor: isClosest ? "rgba(16, 185, 129, 0.3)" : "rgba(5, 150, 105, 0.2)",
               category: "Housing Services"
             },
             "Rehabilitation": {
-              color: "#7c3aed",
-              gradient: isClosest ? "linear-gradient(135deg, #8b5cf6, #7c3aed)" : "linear-gradient(135deg, #7c3aed, #6d28d9)",
-              emoji: "�",
-              lightColor: "#faf5ff",
-              shadowColor: isClosest ? "rgba(139, 92, 246, 0.3)" : "rgba(124, 58, 237, 0.2)",
+              color: "#19647E",
+              gradient: isClosest ? "linear-gradient(135deg, #19647E, #164556)" : "linear-gradient(135deg, #19647E, #123248)",
+              icon: "Rehabilitation",
+              lightColor: "#f0f9ff",
+              shadowColor: isClosest ? "rgba(25, 100, 126, 0.3)" : "rgba(25, 100, 126, 0.2)",
               category: "Health Services"
             },
             "Education": {
-              color: "#dc2626",
-              gradient: isClosest ? "linear-gradient(135deg, #ef4444, #dc2626)" : "linear-gradient(135deg, #dc2626, #b91c1c)",
-              emoji: "📚",
-              lightColor: "#fef2f2",
-              shadowColor: isClosest ? "rgba(239, 68, 68, 0.3)" : "rgba(220, 38, 38, 0.2)",
+              color: "#28AFB0",
+              gradient: isClosest ? "linear-gradient(135deg, #28AFB0, #219899)" : "linear-gradient(135deg, #28AFB0, #1a7172)",
+              icon: "Education",
+              lightColor: "#f0fdfa",
+              shadowColor: isClosest ? "rgba(40, 175, 176, 0.3)" : "rgba(40, 175, 176, 0.2)",
               category: "Educational Services"
             }
           };
           return configs[type as keyof typeof configs] || {
             color: "#6b7280",
             gradient: "linear-gradient(135deg, #6b7280, #4b5563)",
-            emoji: "📍",
+            icon: "General",
             lightColor: "#f9fafb",
             shadowColor: "rgba(107, 114, 128, 0.2)",
             category: "General Services"
@@ -360,7 +407,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
                   transform: translateX(-50%);
                   font-size: ${isClosest ? '16px' : '14px'};
                   line-height: 1;
-                ">${facilityConfig.emoji}</div>
+                ">${getSVGIcon(facilityConfig.icon)}</div>
                 
                 ${isClosest ? `
                   <div style="
@@ -389,171 +436,135 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
             .addTo(map)
             .bindPopup(`
               <div style="
-                min-width: 320px;
-                max-width: 360px;
-                padding: 0;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: white;
+                width: 320px;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+                background: #f8fafc;
                 border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(16, 24, 39, 0.13);
+                border: 1.5px solid #e0e7ef;
                 overflow: hidden;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                border: 1px solid #e5e7eb;
+                padding: 0;
               ">
-                
                 <!-- Header -->
-                <div style="
-                  background: #f8fafc;
-                  padding: 20px;
-                  border-bottom: 1px solid #e5e7eb;
-                ">
-                  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                    <div style="
-                      width: 40px;
-                      height: 40px;
-                      background: ${facilityConfig.color};
-                      border-radius: 8px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      font-size: 20px;
-                    ">${facilityConfig.emoji}</div>
-                    
-                    <div style="flex: 1;">
-                      <h3 style="
-                        margin: 0 0 4px 0;
-                        font-weight: 600;
-                        font-size: 18px;
-                        color: #111827;
-                        line-height: 1.2;
-                      ">${facility.name}</h3>
-                      ${isClosest ? '<div style="display: inline-block; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">CLOSEST</div>' : ''}
-                    </div>
+                <div style="background: ${facilityConfig.gradient}; padding: 16px 18px 12px 18px; color: #fff; display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 38px; height: 38px; background: rgba(255,255,255,0.18); border-radius: 9px; display: flex; align-items: center; justify-content: center;">
+                    ${getSVGIcon(facilityConfig.icon, 'white', 20)}
                   </div>
-                  
-                  <div style="
-                    background: ${facilityConfig.lightColor};
-                    color: ${facilityConfig.color};
-                    padding: 6px 12px;
-                    border-radius: 6px;
-                    font-size: 12px;
-                    font-weight: 600;
-                    display: inline-block;
-                  ">${facility.type}</div>
+                  <div style="flex: 1; min-width: 0;">
+                    <h3 style="margin: 0 0 4px 0; font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2; word-break: break-word; letter-spacing: -0.2px;">${facility.name}</h3>
+                    <span style="display: inline-block; background: rgba(255,255,255,0.22); color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">${facility.type.toUpperCase()}</span>
+                  </div>
                 </div>
-                
                 <!-- Content -->
-                <div style="padding: 20px;">
-                  <p style="
-                    margin: 0 0 20px 0;
-                    font-size: 14px;
-                    color: #6b7280;
-                    line-height: 1.5;
-                  ">${facility.description}</p>
-                  
-                  <!-- Distance Info -->
-                  <div style="
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 12px;
-                    margin-bottom: 20px;
-                    padding: 16px;
-                    background: #f9fafb;
-                    border-radius: 8px;
-                    border: 1px solid #f3f4f6;
-                  ">
-                    <div style="text-align: center;">
-                      <div style="
-                        font-size: 20px;
-                        font-weight: 700;
-                        color: #111827;
-                        margin-bottom: 2px;
-                      ">${distance.toFixed(1)}</div>
-                      <div style="
-                        font-size: 11px;
-                        color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Miles</div>
+                <div style="padding: 14px 16px 10px 16px; background: #fff;">
+                  <p style="margin: 0 0 10px 0; color: #334155; font-size: 12px; line-height: 1.5; font-weight: 500;">${facility.description}</p>
+                  <div style="display: flex; justify-content: space-between; gap: 8px; margin-bottom: 12px;">
+                    <div style="flex: 1; text-align: center;">
+                      <div style="width: 24px; height: 24px; background: #2563eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+                        <svg width='12' height='12' fill='white' viewBox='0 0 24 24'><path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/></svg>
+                      </div>
+                      <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 1px;">${distance.toFixed(1)}</div>
+                      <div style="font-size: 9px; color: #64748b; font-weight: 700; letter-spacing: 0.5px;">MILES</div>
                     </div>
-                    
-                    <div style="text-align: center;">
-                      <div style="
-                        font-size: 20px;
-                        font-weight: 700;
-                        color: #111827;
-                        margin-bottom: 2px;
-                      ">${drivingTime}</div>
-                      <div style="
-                        font-size: 11px;
-                        color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Min Drive</div>
+                    <div style="flex: 1; text-align: center;">
+                      <div style="width: 24px; height: 24px; background: #059669; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+                        <svg width='12' height='12' fill='white' viewBox='0 0 24 24'><path d='M13.5 5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L9 8.3v4.7h2V9.6l-.2-.7z'/></svg>
+                      </div>
+                      <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 1px;">${walkingTime}</div>
+                      <div style="font-size: 9px; color: #64748b; font-weight: 700; letter-spacing: 0.5px;">MIN WALK</div>
                     </div>
-                    
-                    <div style="text-align: center;">
-                      <div style="
-                        font-size: 20px;
-                        font-weight: 700;
-                        color: #111827;
-                        margin-bottom: 2px;
-                      ">${walkingTime}</div>
-                      <div style="
-                        font-size: 11px;
-                        color: #6b7280;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                      ">Min Walk</div>
+                    <div style="flex: 1; text-align: center;">
+                      <div style="width: 24px; height: 24px; background: #7c3aed; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+                        <svg width='12' height='12' fill='white' viewBox='0 0 24 24'><path d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z'/></svg>
+                      </div>
+                      <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 1px;">${Math.ceil(walkingTime * 0.3)}</div>
+                      <div style="font-size: 9px; color: #64748b; font-weight: 700; letter-spacing: 0.5px;">MIN DRIVE</div>
                     </div>
                   </div>
-                  
-                  <!-- Action Buttons -->
-                  <div style="display: flex; gap: 12px;">
+                  <!-- Volunteer Positions -->
+                  <div style="margin: 10px 0 0 0;">
+                    <div style="font-size: 11px; font-weight: 700; color: #2563eb; margin-bottom: 5px; letter-spacing: 0.5px;">Volunteer Positions</div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                      ${getVolunteerPositions(facility.type).slice(0,2).map(role => `
+                        <div style="display: flex; align-items: center; background: #f1f5f9; border-radius: 6px; border: 1px solid #e0e7ef; padding: 6px 8px; gap: 8px;">
+                          <div style="width: 18px; height: 18px; background: #e0e7ef; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <svg width='10' height='10' fill='#2563eb' viewBox='0 0 24 24'><path d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/></svg>
+                          </div>
+                          <div style="flex: 1; min-width: 0;">
+                            <div style="font-size: 12px; font-weight: 700; color: #1e293b; line-height: 1.2;">${role.title}</div>
+                            <div style="font-size: 10px; color: #64748b; margin-top: 1px;">${role.time} &bull; ${role.type}</div>
+                          </div>
+                          <div style="font-size: 10px; color: #059669; font-weight: 700; background: #d1fae5; border-radius: 4px; padding: 2px 5px;">${role.openings} open</div>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 8px; margin-top: 10px;">
                     <button 
                       onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${facility.lat},${facility.lng}', '_blank')" 
                       style="
                         flex: 1;
-                        padding: 12px 16px;
-                        background: ${facilityConfig.color};
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        padding: 8px 0;
+                        background: #2563eb;
                         color: white;
                         border: none;
-                        border-radius: 8px;
-                        font-size: 14px;
-                        font-weight: 600;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        font-weight: 700;
                         cursor: pointer;
-                        transition: all 0.2s ease;
+                        transition: all 0.2s;
+                        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
                       "
-                      onmouseover="this.style.opacity='0.9';"
-                      onmouseout="this.style.opacity='1';">
-                      Get Directions
+                      onmouseover="this.style.opacity='0.92'; this.style.transform='translateY(-1px)';"
+                      onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
+                      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                      Directions
                     </button>
-                    
                     <button 
-                      onclick="alert('Application feature coming soon! Contact facility directly for now.')" 
+                      onclick="alert('For inquiries, please contact the facility directly. Contact information available on our main website.')" 
                       style="
                         flex: 1;
-                        padding: 12px 16px;
-                        background: #1f2937;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        padding: 8px 0;
+                        background: #059669;
                         color: white;
                         border: none;
-                        border-radius: 8px;
-                        font-size: 14px;
-                        font-weight: 600;
+                        border-radius: 6px;
+                        font-size: 12px;
+                        font-weight: 700;
                         cursor: pointer;
-                        transition: all 0.2s ease;
+                        transition: all 0.2s;
+                        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
                       "
-                      onmouseover="this.style.opacity='0.9';"
-                      onmouseout="this.style.opacity='1';">
-                      Apply Now
+                      onmouseover="this.style.opacity='0.92'; this.style.transform='translateY(-1px)';"
+                      onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
+                      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                      Contact
                     </button>
                   </div>
                 </div>
               </div>
             `, {
               className: 'clean-facility-popup',
-              maxWidth: 380,
+              maxWidth: 340,
               closeButton: true
             });
+
+          console.log('Created marker for:', facility.name);
+
+          marker.on('popupclose', function(e) {
+            const mapContainer = map.getContainer();
+            if (mapContainer) {
+              mapContainer.classList.remove('popup-open');
+            }
+          });
 
           markersRef.current.push(marker);
         });
@@ -600,7 +611,7 @@ export const MapModal = ({ isOpen, onClose, facilityType }: MapModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[95vh] p-0 overflow-hidden">
+      <DialogContent className="max-w-5xl max-h-[95vh] p-0 overflow-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
         <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-4 border-b">
           <DialogTitle className="flex items-center gap-3 text-white">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">

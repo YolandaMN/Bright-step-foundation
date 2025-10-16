@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import {
   Card,
@@ -14,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Clock, Users, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useStaggeredAnimation } from "@/hooks/useStaggeredAnimation";
 
 interface Course {
   id: string;
@@ -47,14 +49,17 @@ const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  
+  // Add staggered animation hook
+  useStaggeredAnimation();
 
   const [showNotice, setShowNotice] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
 
   // Slide-in notice
   useEffect(() => {
-    const timer1 = setTimeout(() => setFadeOut(true), 3000);
-    const timer2 = setTimeout(() => setShowNotice(false), 5000);
+    const timer1 = setTimeout(() => setFadeOut(true), 6000); // Show for 4 seconds
+    const timer2 = setTimeout(() => setShowNotice(false), 6600); // Fade out over 0.6 seconds
 
     return () => {
       clearTimeout(timer1);
@@ -93,6 +98,9 @@ const Courses = () => {
       fetchedCourses = fetchedCourses.slice(0, 9); // limit to exactly 9 cards
 
       setCourses(fetchedCourses);
+      
+      // Dispatch event to trigger animations
+      window.dispatchEvent(new CustomEvent('pageDataLoaded'));
     } catch (error: any) {
       toast({
         title: "Error loading courses",
@@ -112,7 +120,7 @@ const Courses = () => {
       <Navbar />
       <div className="flex-1 bg-secondary">
         {/* Hero Section */}
-        <div className="bg-primary text-white py-10">
+        <div className="animate-on-scroll hero-element bg-primary text-white py-10">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Educational & Skills Development Programs
@@ -125,20 +133,41 @@ const Courses = () => {
 
         {/* Slide-in Notice */}
         {showNotice && (
-          <div className="fixed top-20 right-4 z-[100]">
+          <div className="fixed top-[160px] md:top-[180px] right-4 md:right-6 z-[100] max-w-sm">
             <div
-              className={`px-4 py-3 rounded-md shadow-lg font-medium
-                ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}`}
-              style={{ backgroundColor: "#DDCECD", color: "#000" }}
+              className={`
+                bg-gradient-to-r from-white via-secondary to-white
+                border-l-4 border-primary 
+                text-foreground
+                px-6 py-4 
+                rounded-r-lg 
+                shadow-xl 
+                backdrop-blur-sm 
+                font-medium
+                border border-border/20
+                ${fadeOut ? "animate-slide-out-right" : "animate-slide-in-right"}
+              `}
             >
-              ⚠️ Notice: Only participants enrolled at our center can access these
-              courses. Thank you for understanding!
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                    <span className="text-primary-foreground text-xs font-bold">!</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-primary mb-1">Important Notice</h4>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Only participants enrolled at our center can access these courses. 
+                    Thank you for understanding!
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
 
         {/* Courses Grid */}
-        <div className="text-center container mx-auto px-4 py-12">
+        <div className="animate-on-scroll slide-left card-element text-center container mx-auto px-4 py-12">
           <div className="mb-8">
             <h2 className="text-3xl font-bold mb-4">Available Courses</h2>
             <p className="text-gray-600">
@@ -206,7 +235,7 @@ const Courses = () => {
         </div>
 
         {/* Partnership Section */}
-        <div className="mt-16 bg-white rounded-2xl p-8 shadow-sm">
+        <div className="animate-on-scroll slide-left text-element mt-16 bg-white rounded-2xl p-8 shadow-sm">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Our Education Partners</h3>
@@ -243,7 +272,9 @@ const Courses = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="animate-on-scroll text-element">
+        <Footer />
+      </div>
     </div>
   );
 };
