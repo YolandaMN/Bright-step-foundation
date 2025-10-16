@@ -49,8 +49,8 @@ const Courses = () => {
 
   // Slide-in notice
   useEffect(() => {
-    const timer1 = setTimeout(() => setFadeOut(true), 4000); // Show for 4 seconds
-    const timer2 = setTimeout(() => setShowNotice(false), 4600); // Fade out over 0.6 seconds
+    const timer1 = setTimeout(() => setFadeOut(true), 6000); // Show for 4 seconds
+    const timer2 = setTimeout(() => setShowNotice(false), 6600); // Fade out over 0.6 seconds
 
     return () => {
       clearTimeout(timer1);
