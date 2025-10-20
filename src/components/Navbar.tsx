@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/AuthModal";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/brightstep logo white.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +41,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src={logo} 
+              src="/images/brightstep logo white.png" 
               alt="BrightStep Foundation Logo" 
               className="w-12 h-12 object-contain"
             />

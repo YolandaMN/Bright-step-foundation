@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import logoIcon from "@/assets/Brightstep home.png";
 
 const Hero = () => {
   return (
@@ -37,7 +36,7 @@ const Hero = () => {
             <div className="aspect-square rounded-2xl bg-primary/20 backdrop-blur-sm p-8 flex items-center justify-center">
               <div className="text-center space-y-4">
                 <img 
-                  src={logoIcon} 
+                  src="/images/Brightstep home.png" 
                   alt="BrightStep Foundation Logo" 
                   className="w-auto h-auto mx-auto mb-2 opacity-80 object-contain"
                 />

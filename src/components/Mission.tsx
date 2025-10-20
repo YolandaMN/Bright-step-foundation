@@ -49,7 +49,7 @@ const Mission = () => {
           <div className="relative">
             <div className="aspect-[4/3] rounded-2xl bg-primary/20 backdrop-blur-sm flex items-center justify-center">
               <div className="text-center p-8">
-                <img src="../src/assets/kids.jpg" alt="happy kids" className=""/>
+                <img src="/images/kids.jpg" alt="happy kids" className="w-full h-full object-cover rounded-2xl"/>
               </div>
             </div>
           </div>
